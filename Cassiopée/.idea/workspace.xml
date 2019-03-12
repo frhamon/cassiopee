@@ -14,8 +14,8 @@
         <entry file="file://$PROJECT_DIR$/setup_workspace.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="136">
-                <caret line="8" column="74" lean-forward="true" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
+              <first_editor relative-caret-position="544">
+                <caret line="32" lean-forward="true" selection-end-line="32" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
@@ -96,12 +96,12 @@
       <workItem from="1552323098933" duration="351000" />
       <workItem from="1552323487731" duration="2369000" />
       <workItem from="1552326055720" duration="2630000" />
-      <workItem from="1552395648085" duration="214000" />
+      <workItem from="1552395648085" duration="916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7568000" />
+    <option name="totallyTimeSpent" value="8164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -121,7 +121,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2990249" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.2990249" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3726977" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -137,8 +137,8 @@
     <entry file="file://$PROJECT_DIR$/setup_workspace.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="136">
-            <caret line="8" column="74" lean-forward="true" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
+          <first_editor relative-caret-position="544">
+            <caret line="32" lean-forward="true" selection-end-line="32" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
