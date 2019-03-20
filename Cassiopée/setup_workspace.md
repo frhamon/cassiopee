@@ -30,3 +30,8 @@ Some other precious information might be found at this [address](https://www.ana
 - Get to this [page](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient), and download the mysqlclient .whl extension package that corresponds to your environment (cp37 means it is adapted for Python 3.7). 
 - Then, install this package by executing in your terminal `python -m pip install C:/Users/%USERNAME%/Downloads/%WHL_PACKAGE%`, assuming the package can be found in your Download folder. 
 - To import MySQLClient in Python, execute `import MySQLdb`. 
+
+## Install BeautifulSoup 4
+
+- Execute `pip install beautifulsoup4`
+- To import it in a Python project, execute in your Python terminal : `from bs4 import BeautifulSoup`
