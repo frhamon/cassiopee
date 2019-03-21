@@ -35,3 +35,8 @@ Some other precious information might be found at this [address](https://www.ana
 
 - Execute `pip install beautifulsoup4`
 - To import it in a Python project, execute in your Python terminal : `from bs4 import BeautifulSoup`
+
+## Install Jupyter NoteBook
+
+- Execute `pip install jupyter`
+- To launch Jupyter, execute `jupyter notebook` in your terminal. Jupyter should open in your browser. 
