@@ -15,7 +15,10 @@
 - date (DATE)
 - advisoryDescription (TEXT)
 - cvss FOREIGN KEY 
-TO TABLE(CVSS)</panel_attributes>
+TO TABLE(CVSS)
+
+- CWE (INT) FOREIGN KEY
+TO TABLE(CWE)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
