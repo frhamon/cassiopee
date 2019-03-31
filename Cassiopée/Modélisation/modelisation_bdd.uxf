@@ -1,19 +1,401 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>170</y>
-      <w>210</w>
-      <h>190</h>
+      <x>432</x>
+      <y>0</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>CVE
+--
+- ** id (INT)
+- date (DATE)
+- advisoryDescription (TEXT)
+- cvss FOREIGN KEY 
+TO TABLE(CVSS)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>888</x>
+      <y>504</y>
+      <w>168</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>Product
+--
+- ** id (INT)
+- name (CHAR)
+- sector () FOREIGN KEY 
+TO TABLE(Sector)
+
+- countriesDeployed
+- deviceYN (TINYINT)
+- deviceType FOREIGN KEY 
+TO TABLE(DeviceType)
+
+- deviceComment (TEXT)
+- vendorID (INT) FOREIGN KEY 
+TO TABLE(Vendor)
+
+- sector (INT) FOREIGN KEY 
+TO TABLE(Sector)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>112</y>
+      <w>168</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>ICS-CERT
 --
--id: Long {composite}
-_-ClassAttribute: Long_
+- ** id (INT)
+- date (DATE)
+- Patch (INT) FOREIGN KEY 
+TO TABLE(Patch)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>888</x>
+      <y>760</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Vendor (company that 
+sells the product)
+--
+- ** id (INT)
+- location (CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>0</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>CVSS
+--
+- ** id
+- AV (n, a, l, p)
+- AC (l, h)
+- PR (n, l, h)
+- UI (n, r)
+- S (u, c)
+- C (n, l, h)
+- I (n, l, h)
+- A (n, l, h)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>8</x>
+      <y>216</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>SFP-1
+--
+- ** id
+- name(CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>432</x>
+      <y>216</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>CWE
+--
+- ** id (INT)
+- CWELink
+- CWEAbstraction
+- CWEStructure
+- CWE-SFP2-Cluster (INT)
+FOREIGN KEY TO 
+TABLE(SFP-2)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>216</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>SFP-2
+--
+- ** id (INT)
+- name (CHAR)
+- SFP-1 (INT) FOREIGN KEY
+TO TABLE(SFP-1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>688</x>
+      <y>648</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Sector
+--
+- ** id (INT)
+- name (CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1112</x>
+      <y>112</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Patch
+(enumération exhaustive 
+des 7 types de patch)
+--
+- ** id (INT)
+- patch (CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>176</y>
+      <w>88</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>688</x>
+      <y>440</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>DeviceType
+--
+- ** id
+- type (CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1272</x>
+      <y>504</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Countries
+--
+- ** id (INT)
+- name (CHAR)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1104</x>
+      <y>568</y>
+      <w>128</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>TABLE DE JOINTURE
+--
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>560</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;60.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1048</x>
+      <y>560</y>
+      <w>72</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>704</y>
+      <w>56</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>536</y>
+      <w>56</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>56</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;60.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>960</x>
+      <y>728</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>904</x>
+      <y>368</y>
+      <w>128</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>TABLE DE JOINTURE
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>952</x>
+      <y>256</y>
+      <w>24</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>952</x>
+      <y>376</y>
+      <w>24</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>144</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>280</y>
+      <w>56</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>168</x>
+      <y>280</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>592</x>
+      <y>120</y>
+      <w>96</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>128</y>
+      <w>128</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>TABLE DE JOINTURE
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>120</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
