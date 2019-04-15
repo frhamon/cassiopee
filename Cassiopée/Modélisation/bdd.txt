@@ -1,11 +1,14 @@
 CREATE DATABASE cassiopee CHARACTER SET 'utf8';
 
 
+USE cassiopee;
+
+
 
 CREATE TABLE IF NOT EXISTS ICSCERT (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 date DATE, 
-patch INT)  ENGINE = INNODB;
+patch SMALLINT UNSIGNED NOT NULL)  ENGINE = INNODB;
 
 
 
@@ -19,24 +22,24 @@ CREATE TABLE IF NOT EXISTS CVE (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 date DATE, 
 advisoryDescription TEXT, 
-cvss INT, 
-cwe INT)  ENGINE = INNODB;
+cvss SMALLINT UNSIGNED NOT NULL, 
+cwe SMALLINT UNSIGNED NOT NULL)  ENGINE = INNODB;
 
 
 
 CREATE TABLE IF NOT EXISTS CWE (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-cweLink,
-cweAbstraction, 
-cweStructure, 
-cweSFP2Cluster INT)  ENGINE = INNODB;
+cweLink CHAR(255),
+cweAbstraction TEXT, 
+cweStructure TEXT, 
+cweSFP2Cluster SMALLINT UNSIGNED NOT NULL)  ENGINE = INNODB;
 
 
 
 CREATE TABLE IF NOT EXISTS SFP2 (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 name CHAR(255), 
-sfp1 INT)  ENGINE = INNODB;
+sfp1 SMALLINT UNSIGNED NOT NULL)  ENGINE = INNODB;
 
 
 
@@ -62,12 +65,12 @@ A VARCHAR(1))  ENGINE = INNODB;
 CREATE TABLE IF NOT EXISTS Product (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 name CHAR(255), 
-sector INT, 
+sector SMALLINT UNSIGNED NOT NULL, 
 countriesDeployed INT, 
 deviceYN TINYINT, 
-deviceType INT, 
+deviceType SMALLINT UNSIGNED NOT NULL, 
 deviceComment TEXT, 
-vendor INT) ENGINE = INNODB;
+vendor SMALLINT UNSIGNED NOT NULL) ENGINE = INNODB;
 
 
 
@@ -130,9 +133,11 @@ ALTER TABLE Product ADD CONSTRAINT fk_product_vendor FOREIGN KEY (vendor) REFERE
 
 CREATE TABLE ICSCERT_CVE
 (
-	id_icscert_cve INT NOT NULL IDENTITY CONSTRAINT PK_icscert_cve PRIMARY KEY,
-	id_icscert INT NOT NULL CONSTRAINT FK_icscert_cve__id_icscert FOREIGN KEY (id_icscert) REFERENCES ICSCERT(id),
-	id_cve INT NOT NULL CONSTRAINT FK_icscert_cve__id_cve FOREIGN KEY (id_cve) REFERENCES CVE(id),
+	id_icscert_cve INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_icscert SMALLINT UNSIGNED NOT NULL,
+	id_cve SMALLINT UNSIGNED NOT NULL,
+	CONSTRAINT FK_icscert_cve__id_icscert FOREIGN KEY (id_icscert) REFERENCES ICSCERT(id),
+	CONSTRAINT FK_icscert_cve__id_cve FOREIGN KEY (id_cve) REFERENCES CVE(id),
 	CONSTRAINT UQ_icscert_cve__id_icscert__id_cve UNIQUE (id_icscert, id_cve)
 );
 
@@ -140,9 +145,11 @@ CREATE TABLE ICSCERT_CVE
 
 CREATE TABLE ICSCERT_Product
 (
-	id_icscert_product INT NOT NULL IDENTITY CONSTRAINT PK_icscert_product PRIMARY KEY,
-	id_icscert INT NOT NULL CONSTRAINT FK_icscert_product__id_icscert FOREIGN KEY (id_icscert) REFERENCES ICSCERT(id),
-	id_product INT NOT NULL CONSTRAINT FK_icscert_product__id_product FOREIGN KEY (id_product) REFERENCES Product(id),
+	id_icscert_product INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_icscert SMALLINT UNSIGNED NOT NULL,
+	id_product SMALLINT UNSIGNED NOT NULL,
+	CONSTRAINT FK_icscert_product__id_icscert FOREIGN KEY (id_icscert) REFERENCES ICSCERT(id),
+	CONSTRAINT FK_icscert_product__id_product FOREIGN KEY (id_product) REFERENCES Product(id),	
 	CONSTRAINT UQ_icscert_product__id_icscert__id_product UNIQUE (id_icscert, id_product)
 );
 
@@ -150,9 +157,11 @@ CREATE TABLE ICSCERT_Product
 
 CREATE TABLE Product_Countries
 (
-	id_product_countries INT NOT NULL IDENTITY CONSTRAINT PK_product_countries PRIMARY KEY,
-	id_product INT NOT NULL CONSTRAINT FK_product_countries__id_product FOREIGN KEY (id_product) REFERENCES Product(id),
-	id_countries INT NOT NULL CONSTRAINT FK_product_countries__id_countries FOREIGN KEY (id_countries) REFERENCES Countries(id),
+	id_product_countries INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_product SMALLINT UNSIGNED NOT NULL,
+	id_countries SMALLINT UNSIGNED NOT NULL,
+	CONSTRAINT FK_product_countries__id_product FOREIGN KEY (id_product) REFERENCES Product(id),
+	CONSTRAINT FK_product_countries__id_countries FOREIGN KEY (id_countries) REFERENCES Countries(id),
 	CONSTRAINT UQ_product_countries__id_product__id_countries UNIQUE (id_product, id_countries)
 );
 
