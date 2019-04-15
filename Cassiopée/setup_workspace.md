@@ -39,4 +39,9 @@ Some other precious information might be found at this [address](https://www.ana
 ## Install Jupyter NoteBook
 
 - Execute `pip install jupyter`
-- To launch Jupyter, execute `jupyter notebook` in your terminal. Jupyter should open in your browser. 
+- To launch Jupyter, execute `jupyter notebook` in your terminal. Jupyter should open in your browser.
+
+## Import SQL file in MySQL
+
+- When you get your .sql file, execute in cmd.exe `mysql -u root -p database_name < file.sql`, and enter your password. 
+- When you're done using the database, you have to dump it. To do so, disconnect from MySQL server, and execute in cmd.exe `mysqldump -u root -p database_name > file.sql`, and enter your password when asked. 
