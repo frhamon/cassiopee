@@ -9,6 +9,31 @@ opener = AppURLopener()
 
 
 class Advisory:
+    def send_to_db(self):
+        print(self.ics)
+        print(self.ics_date)
+        print()
+        print(self.vendor)
+        print(self.location)
+        print()
+        print(self.product)
+        print(self.sector)
+        print(self.countries)
+        print()
+        print(self.cve)
+        print(self.cve_link)
+        print(self.cve_date)
+        print(self.cve_text)
+        print()
+        print(self.cvss)
+        print(self.score)
+        print()
+        print(self.cwe)
+        print(self.cwe_link)
+        print(self.abstraction)
+        print(self.structure)
+        print(self.sfp1)
+        print(self.sfp2)
 
     def __init__(self,url):
         page = opener.open(url)
@@ -41,10 +66,6 @@ class Advisory:
 
 
 
-        self.printall()
-
-
-
     def parser(self,balise,target,clean,):
         res = self.soup.find(balise, text=re.compile(target))
         res = res.getText()
@@ -53,9 +74,13 @@ class Advisory:
         return res
 
     def parser_parent(self,exp):
-        res = self.soup.find('strong', text=re.compile(exp)).parent
-        res = res.getText()
-        res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
+        res = self.soup.find('strong', text=re.compile(exp))
+        if res != None:
+            res = res.parent
+            res = res.getText()
+            res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
+        else:
+            res = "None"
         return res
 
     def parser_cve_date(self,cve):
@@ -115,44 +140,19 @@ class Advisory:
             self.structure += [struct]
 
             sfp2 = soupCWE.find("a",text=re.compile('SFP Secondary'))
-            addr = re.sub("/data[A-Za-z0-9/\-:.\s]*",sfp2.get('href'),cwe.get('href'))
-            pageSFP1 = opener.open(addr)
-            soupSFP1 = BeautifulSoup(pageSFP1, 'html.parser')
-            sfp2 = sfp2.getText()
-            sfp2 = re.sub("[A-Z-a-z\s]*: ","",sfp2)
-            self.sfp2 += [sfp2]
+            if sfp2 != None:     #Pas toujours de SFP2
+                addr = re.sub("/data[A-Za-z0-9/\-:.\s]*",sfp2.get('href'),cwe.get('href'))
+                pageSFP1 = opener.open(addr)
+                soupSFP1 = BeautifulSoup(pageSFP1, 'html.parser')
+                sfp2 = sfp2.getText()
+                sfp2 = re.sub("[A-Z-a-z\s]*: ","",sfp2)
+                self.sfp2 += [sfp2]
 
 
-            sfp1 = soupSFP1.find('a', text=re.compile('SFP Primary'))
-            sfp1 = sfp1.getText()
-            sfp1 = re.sub('[A-Za-z\s]*: ','',sfp1)
-            self.sfp1 += [sfp1]
-
-
-
-
-    def printall(self):
-        print(self.ics)
-        print(self.ics_date)
-        print()
-        print(self.vendor)
-        print(self.location)
-        print()
-        print(self.product)
-        print(self.sector)
-        print(self.countries)
-        print()
-        print(self.cve)
-        print(self.cve_link)
-        print(self.cve_date)
-        print(self.cve_text)
-        print()
-        print(self.cvss)
-        print(self.score)
-        print()
-        print(self.cwe)
-        print(self.cwe_link)
-        print(self.abstraction)
-        print(self.structure)
-        print(self.sfp1)
-        print(self.sfp2)
+                sfp1 = soupSFP1.find('a', text=re.compile('SFP Primary'))
+                sfp1 = sfp1.getText()
+                sfp1 = re.sub('[A-Za-z\s]*: ','',sfp1)
+                self.sfp1 += [sfp1]
+            else:
+                self.sfp2 += ["None"]
+                self.sfp1 += ["None"]
