@@ -70,8 +70,22 @@ class Advisory:
         # Référence de l'advisory ICS-CERT
         self.ics = self.parser('h1', 'Advisory', "[A-Za-z\s]*\(")
 
-        # Date de publication originale de l'advisory
-        self.ics_date = self.parser('footer', 'date', "[A-Za-z\s]*: ")
+        # Date de publication originale de l'advisory (mis au format YYYY-MM-DD)
+        date = self.parser('footer', 'date', "[A-Za-z\s]*: ").split(', ')
+        date[0] = date[0].split(" ")
+        if date[0][0] == "January": date[0][0] = "01"
+        elif date[0][0] == "February": date[0][0] = "02"
+        elif date[0][0] == "March": date[0][0] = "03"
+        elif date[0][0] == "April": date[0][0] = "04"
+        elif date[0][0] == "May": date[0][0] = "05"
+        elif date[0][0] == "June": date[0][0] = "06"
+        elif date[0][0] == "July": date[0][0] = "07"
+        elif date[0][0] == "August": date[0][0] = "08"
+        elif date[0][0] == "September": date[0][0] = "09"
+        elif date[0][0] == "October": date[0][0] = "10"
+        elif date[0][0] == "November": date[0][0] = "11"
+        elif date[0][0] == "December": date[0][0] = "12"
+        self.ics_date = date[1] + '-' + date[0][0] + '-' + date[0][1]
 
         # Entreprise qui vend le produit
         self.vendor = self.parser_parent("Vendor")
@@ -95,7 +109,7 @@ class Advisory:
         # Liste des liens vers NVD
         self.cve_link = []
 
-        # Liste des dates de création des CVE (1er Janvier si date précise non disponible)
+        # Liste des dates de publication des CVE sur NVD(1er Janvier si date précise non disponible)
         self.cve_date = []
 
         # Liste des descriptions des vulnérabilités
@@ -195,11 +209,13 @@ class Advisory:
             res = soupCVE.find('strong', text=re.compile("Last Modified")).next_sibling.next_sibling
             res = res.getText()
             res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
+            res = res.split("/")
+            res = res[2] + '-' + res[0] + '-' + res[1]
             return res
         res = cve.getText()
         res = re.sub("CVE-","",res)
         res = re.sub("-[0-9]*","",res)
-        res = "01/01/" + res
+        res = res + "-01-01"
         return res
 
 
