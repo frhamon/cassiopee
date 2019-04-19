@@ -2,9 +2,17 @@ from bs4 import BeautifulSoup
 import urllib.request
 import re
 
+
+"""
+ICS-CERT n'accepte pas les requetes ne venant pas de navigateurs,
+on change alors le User-Agent de nos requete pour se faire passer
+pour Mozilla Firefox:
+"""
 class AppURLopener(urllib.request.FancyURLopener):
     version = "Mozilla/5.0"
 
+
+# Crée une instance d'opener d'url avec le bon User-Agent
 opener = AppURLopener()
 
 
@@ -136,6 +144,7 @@ class Advisory:
         res = re.sub("\)", "", res)
         return res
 
+
     def parser_parent(self,exp):
         """
         Récupère l'information voulue --> pour l'entreprise, sa localisation, le produit, ses secteurs
@@ -158,6 +167,7 @@ class Advisory:
             res = "None"
         return res
 
+
     def parser_cve_date(self,cve):
         """
         Récupère la date précise de création d'un CVE si celle-ci est disponible (1er Janvier sinon)
@@ -179,6 +189,7 @@ class Advisory:
         res = re.sub("-[0-9]*","",res)
         res = "01/01/" + res
         return res
+
 
     def cve_parser(self):
         """
@@ -212,6 +223,7 @@ class Advisory:
             score = re.sub("[A-Za-z0-9\-.,;\s]* score of ","",score)
             score = re.sub(" has[A-Za-z0-9\-.,;\s\(\):/]*","",score)
             self.score += [score]
+
 
     def cwe_parser(self):
         """
