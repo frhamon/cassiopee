@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import re
+import MySQLdb as mdb
 
 
 """
@@ -25,6 +26,22 @@ class Advisory:
 
         Pour l'instant : print toutes les données
         """
+
+        """ C'est la procédure pour ajouter des données en base, ici il s'agit de
+        la table Vendor."""
+
+        db = mdb.connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
+
+        c = db.cursor()
+
+        c.execute(""" insert into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+
+        db.commit()
+
+        c.close()
+
+        db.close()
+
         print(self.ics)
         print(self.ics_date)
         print()
