@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import re
+import MySQLdb as mdb
 
 class AppURLopener(urllib.request.FancyURLopener):
     version = "Mozilla/5.0"
@@ -17,6 +18,19 @@ class Advisory:
 
         Pour l'instant : print toutes les données
         """
+
+        db = mdb.connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
+
+        c = db.cursor()
+
+        c.execute(""" insert into vendor values(DEFAULT , %s) """, (self.location,))
+
+        db.commit()
+
+        c.close()
+
+        db.close()
+
         print(self.ics)
         print(self.ics_date)
         print()
