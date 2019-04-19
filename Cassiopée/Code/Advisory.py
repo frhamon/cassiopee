@@ -19,11 +19,14 @@ class Advisory:
         Pour l'instant : print toutes les données
         """
 
+        """ C'est la procédure pour ajouter des données en base, ici il s'agit de
+        la table Vendor."""
+
         db = mdb.connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
 
         c = db.cursor()
 
-        c.execute(""" insert into vendor values(DEFAULT , %s) """, (self.location,))
+        c.execute(""" insert into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
 
         db.commit()
 
