@@ -2,3 +2,4 @@
 venv/*
 Code/venv/*
 Code/.idea/*
+test.py
