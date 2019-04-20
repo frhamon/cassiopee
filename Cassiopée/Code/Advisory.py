@@ -28,12 +28,12 @@ class Advisory:
 
         # Procédure pour ajouter des données en base, ici il s'agit de la table Vendor
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
-        db = mdb.Connection(host='localhost', db='cassiopee', passwd='', user='root')
-        c = db.cursor()
-        c.execute(""" insert into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
-        db.commit()
-        c.close()
-        db.close()
+        # db = mdb.Connection(host='localhost', db='cassiopee', passwd='', user='root')
+        # c = db.cursor()
+        # c.execute(""" insert into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+        # db.commit()
+        # c.close()
+        # db.close()
 
 
         # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
