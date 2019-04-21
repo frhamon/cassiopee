@@ -5,9 +5,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>371</x>
-      <y>49</y>
+      <y>0</y>
       <w>147</w>
-      <h>133</h>
+      <h>154</h>
     </coordinates>
     <panel_attributes>CVE
 --
@@ -18,14 +18,17 @@
 TO TABLE(CVSS)
 
 - CWE (INT) FOREIGN KEY
-TO TABLE(CWE)</panel_attributes>
+TO TABLE(CWE)
+
+- name (CHAR)
+- link (CHAR)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>770</x>
-      <y>490</y>
+      <y>441</y>
       <w>147</w>
       <h>196</h>
     </coordinates>
@@ -50,7 +53,7 @@ TO TABLE(Vendor)</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>763</x>
-      <y>147</y>
+      <y>98</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -59,14 +62,15 @@ TO TABLE(Vendor)</panel_attributes>
 - ** id (INT)
 - date (DATE)
 - Patch (INT) FOREIGN KEY 
-TO TABLE(Patch)</panel_attributes>
+TO TABLE(Patch)
+- name (CHAR)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>770</x>
-      <y>714</y>
+      <y>665</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -74,20 +78,22 @@ TO TABLE(Patch)</panel_attributes>
 sells the product)
 --
 - ** id (INT)
-- location (CHAR)</panel_attributes>
+- location (CHAR)
+- UNIQUE {name (CHAR)}</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>189</x>
-      <y>49</y>
+      <y>0</y>
       <w>147</w>
-      <h>133</h>
+      <h>161</h>
     </coordinates>
     <panel_attributes>CVSS
 --
 - ** id
+UNIQUE{
 - AV (n, a, l, p)
 - AC (l, h)
 - PR (n, l, h)
@@ -95,30 +101,32 @@ sells the product)
 - S (u, c)
 - C (n, l, h)
 - I (n, l, h)
-- A (n, l, h)</panel_attributes>
+- A (n, l, h)
+}
+- score DECIMAL(3,1)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>238</y>
+      <y>189</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
     <panel_attributes>SFP-1
 --
 - ** id
-- name(CHAR)</panel_attributes>
+- UNIQUE {name(CHAR)}</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>371</x>
-      <y>238</y>
+      <y>189</y>
       <w>147</w>
-      <h>133</h>
+      <h>105</h>
     </coordinates>
     <panel_attributes>CWE
 --
@@ -135,14 +143,14 @@ TABLE(SFP-2)</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>196</x>
-      <y>238</y>
+      <y>189</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
     <panel_attributes>SFP-2
 --
 - ** id (INT)
-- name (CHAR)
+- UNIQUE {name (CHAR)}
 - SFP-1 (INT) FOREIGN KEY
 TO TABLE(SFP-1)</panel_attributes>
     <additional_attributes/>
@@ -151,21 +159,21 @@ TO TABLE(SFP-1)</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>595</x>
-      <y>616</y>
+      <y>567</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
     <panel_attributes>Sector
 --
 - ** id (INT)
-- name (CHAR)</panel_attributes>
+- UNIQUE {name (CHAR)}</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>966</x>
-      <y>147</y>
+      <y>98</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -181,7 +189,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>903</x>
-      <y>203</y>
+      <y>154</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -192,7 +200,7 @@ des 7 types de patch)
     <id>UMLClass</id>
     <coordinates>
       <x>595</x>
-      <y>434</y>
+      <y>385</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -206,13 +214,14 @@ des 7 types de patch)
     <id>UMLClass</id>
     <coordinates>
       <x>1106</x>
-      <y>490</y>
+      <y>441</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
     <panel_attributes>Countries
 --
 - ** id (INT)
+- code CHAR(2))
 - name (CHAR)</panel_attributes>
     <additional_attributes/>
   </element>
@@ -220,7 +229,7 @@ des 7 types de patch)
     <id>UMLClass</id>
     <coordinates>
       <x>959</x>
-      <y>546</y>
+      <y>497</y>
       <w>112</w>
       <h>14</h>
     </coordinates>
@@ -233,7 +242,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>1064</x>
-      <y>539</y>
+      <y>490</y>
       <w>56</w>
       <h>28</h>
     </coordinates>
@@ -244,7 +253,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>910</x>
-      <y>539</y>
+      <y>490</y>
       <w>63</w>
       <h>28</h>
     </coordinates>
@@ -255,7 +264,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>735</x>
-      <y>665</y>
+      <y>616</y>
       <w>49</w>
       <h>28</h>
     </coordinates>
@@ -266,7 +275,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>735</x>
-      <y>518</y>
+      <y>469</y>
       <w>49</w>
       <h>28</h>
     </coordinates>
@@ -277,7 +286,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>329</x>
-      <y>98</y>
+      <y>49</y>
       <w>56</w>
       <h>28</h>
     </coordinates>
@@ -288,7 +297,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>833</x>
-      <y>679</y>
+      <y>630</y>
       <w>21</w>
       <h>49</h>
     </coordinates>
@@ -299,7 +308,7 @@ des 7 types de patch)
     <id>UMLClass</id>
     <coordinates>
       <x>784</x>
-      <y>371</y>
+      <y>322</y>
       <w>112</w>
       <h>14</h>
     </coordinates>
@@ -312,7 +321,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>826</x>
-      <y>273</y>
+      <y>224</y>
       <w>21</w>
       <h>112</h>
     </coordinates>
@@ -323,7 +332,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>826</x>
-      <y>378</y>
+      <y>329</y>
       <w>21</w>
       <h>126</h>
     </coordinates>
@@ -334,18 +343,18 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>434</x>
-      <y>175</y>
+      <y>147</y>
       <w>21</w>
-      <h>77</h>
+      <h>56</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>336</x>
-      <y>294</y>
+      <y>245</y>
       <w>49</w>
       <h>28</h>
     </coordinates>
@@ -356,7 +365,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>140</x>
-      <y>294</y>
+      <y>245</y>
       <w>70</w>
       <h>28</h>
     </coordinates>
@@ -367,7 +376,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>511</x>
-      <y>154</y>
+      <y>105</y>
       <w>84</w>
       <h>28</h>
     </coordinates>
@@ -378,7 +387,7 @@ des 7 types de patch)
     <id>UMLClass</id>
     <coordinates>
       <x>581</x>
-      <y>161</y>
+      <y>112</y>
       <w>112</w>
       <h>14</h>
     </coordinates>
@@ -391,7 +400,7 @@ des 7 types de patch)
     <id>Relation</id>
     <coordinates>
       <x>686</x>
-      <y>154</y>
+      <y>105</y>
       <w>91</w>
       <h>28</h>
     </coordinates>
