@@ -3,5 +3,4 @@ venv/*
 Code/venv/*
 Code/.idea/*
 Code/__pycache__/*
-test.py
 Code/*.pyc

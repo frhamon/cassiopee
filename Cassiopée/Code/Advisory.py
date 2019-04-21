@@ -19,51 +19,98 @@ opener = AppURLopener()
 
 class Advisory:
     def send_to_db(self):
-        """
-        !! A COMPLETER !!
 
-        Envoie les données de l'advisory dans la base de donnée
-        """
-
-
-        # Procédure pour ajouter des données en base, ici il s'agit de la table Vendor
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
-        
-	""" db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
+
+        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
         c = db.cursor()
-        c.execute(""" insert into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+
+        c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+
+        c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[0],))
+
+        db.commit()
+
+        c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[0],))
+        sfp1_id = c.fetchone()
+
+        c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[0], sfp1_id[0]))
+
+        db.commit()
+
+        c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[0],))
+        sfp2_id = c.fetchone()
+
+        c.execute(""" insert into cwe values (default , %s, %s, %s, %s)""", (self.cwe_link[0],
+                                                                             self.abstraction[0],
+                                                                             self.structure[0],
+                                                                             sfp2_id[0]))
+
+        cwe_id = c.lastrowid
+        c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[0][0][-1],
+                                                                                                 self.cvss[0][1][-1],
+                                                                                                 self.cvss[0][2][-1],
+                                                                                                 self.cvss[0][3][-1],
+                                                                                                 self.cvss[0][4][-1],
+                                                                                                 self.cvss[0][5][-1],
+                                                                                                 self.cvss[0][6][-1],
+                                                                                                 self.cvss[0][7][-1],
+                                                                                                 self.score[0]))
+
+        db.commit()
+
+        c.execute(""" select id from cvss where 
+        av = %s and 
+        ac = %s and 
+        pr = %s and 
+        ui = %s and 
+        s = %s and 
+        c = %s and 
+        i = %s and 
+        a = %s """,
+                  ((self.cvss[0][0][-1],
+                    self.cvss[0][1][-1],
+                    self.cvss[0][2][-1],
+                    self.cvss[0][3][-1],
+                    self.cvss[0][4][-1],
+                    self.cvss[0][5][-1],
+                    self.cvss[0][6][-1],
+                    self.cvss[0][7][-1])))
+        cvss_id = c.fetchone()
+        c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[0],
+                                                                                     self.cve_text[0],
+                                                                                     cvss_id[0],
+                                                                                     cwe_id,
+                                                                                     self.cve[0],
+                                                                                     self.cve_link[0]))
+        c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[0],))
         db.commit()
         c.close()
         db.close()
-	
-	"""
 
 
         # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
         print(self.ics)
         print(self.ics_date)
         print()
-        print(self.vendor)
-        print(self.location)
-        print()
         print(self.product)
         print(self.sector)
         print(self.countries)
         print()
-        print(self.cve)
-        print(self.cve_link)
-        print(self.cve_date)
-        print(self.cve_text)
+        print(self.cve) #ajouté en base
+        print(self.cve_link) #ajouté en base
+        print(self.cve_date) #ajouté en base
+        print(self.cve_text) #ajouté en base
         print()
-        print(self.cvss)
-        print(self.score)
+        print(self.cvss) #ajouté en base
+        print(self.score) #ajouté en base
         print()
-        print(self.cwe)
-        print(self.cwe_link)
-        print(self.abstraction)
-        print(self.structure)
-        print(self.sfp1)
-        print(self.sfp2)
+        print(self.cwe) #ajouté en base
+        print(self.cwe_link) #ajouté en base
+        print(self.abstraction) #ajouté en base
+        print(self.structure) #ajouté en base
+        print(self.sfp1) #ajouté en base
+        print(self.sfp2) #ajouté en base
 
     def __init__(self,url):
         # Récupération du code html de l'url de l'advisory
