@@ -84,18 +84,49 @@ class Advisory:
                                                                                      self.cve[0],
                                                                                      self.cve_link[0]))
         c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[0],))
+
+
+        #c.execute(""" insert ignore into patch values(DEFAULT , 'nom de patch de remplacement') """)
+
+        db.commit()
+
+        #c.execute(""" select id from patch where patch='nom de patch de remplacement'  """)
+        #patch_id = c.fetchone()
+
+        #c.execute(""" insert into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
+
+
+
+        c.execute(""" insert ignore into devicetype values (default , 'type')""")
+
+        db.commit
+
+        c.execute(""" select id from devicetype where type='type' """)
+        devicetype_id = c.fetchone()
+
+        c.execute(""" select id from sector where name = %s """, (self.sector[0],))
+        sector_id = c.fetchone()
+
+        c.execute(""" select id from vendor where name = %s """, (self.vendor,))
+        vendor_id = c.fetchone()
+
+        c.execute(""" insert into product values (default , %s, %s, 0, %s, 'Device Comment', %s)""", (self.product,
+                                                                                                      sector_id[0],
+                                                                                                      devicetype_id[0],
+                                                                                                      vendor_id[0]))
+
         db.commit()
         c.close()
         db.close()
 
 
         # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
-        print(self.ics)
-        print(self.ics_date)
+        print(self.ics) #ajouté en base
+        print(self.ics_date) #ajouté en base
         print()
-        print(self.product)
-        print(self.sector)
-        print(self.countries)
+        print(self.product) #ajouté en base
+        print(self.sector) #ajouté en base
+        print(self.countries) #ajouté en base
         print()
         print(self.cve) #ajouté en base
         print(self.cve_link) #ajouté en base
