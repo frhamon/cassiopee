@@ -342,7 +342,6 @@ class Advisory:
             id = cve.getText()
             self.cve+=[id]
             cve_link = cve.get('href')
-            print(cve_link)
             self.cve_link += [cve_link]
             cve_date = self.parser_cve_date(cve)
             self.cve_date += [cve_date]
