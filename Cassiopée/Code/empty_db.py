@@ -4,6 +4,10 @@ db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='
 
 c = db.cursor()
 
+c.execute(""" delete from icscert_cve """)
+c.execute(""" delete from icscert_product """)
+c.execute(""" delete from product_countries """)
+c.execute(""" delete from product_sector """)
 c.execute(""" delete from icscert """)
 c.execute(""" delete from product """)
 c.execute(""" delete from vendor """)
