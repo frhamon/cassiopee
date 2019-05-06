@@ -23,7 +23,7 @@ class Advisory:
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
 
 
-        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root', charset='utf8')
+        db = mdb.Connection(host='localhost', db='cassiopee', passwd='mathaouiz09', user='root', charset='utf8')
         c = db.cursor()
 
         c.execute(""" insert ignore into patch values(DEFAULT , 'Default Patch Name') """)
@@ -185,6 +185,7 @@ class Advisory:
         # Date de publication originale de l'advisory (mis au format YYYY-MM-DD)
         date = self.parser('footer', 'date', "[A-Za-z\s]*: ").split(', ')
         date[0] = date[0].split(" ")
+        date[1] = date[1].split(" ")
         if date[0][0] == "January": date[0][0] = "01"
         elif date[0][0] == "February": date[0][0] = "02"
         elif date[0][0] == "March": date[0][0] = "03"
@@ -197,7 +198,7 @@ class Advisory:
         elif date[0][0] == "October": date[0][0] = "10"
         elif date[0][0] == "November": date[0][0] = "11"
         elif date[0][0] == "December": date[0][0] = "12"
-        self.ics_date = date[1] + '-' + date[0][0] + '-' + date[0][1]
+        self.ics_date = date[1][0] + '-' + date[0][0] + '-' + date[0][1]
 
         # Entreprise qui vend le produit
         self.vendor = self.parser_parent("Vendor")
@@ -374,7 +375,7 @@ class Advisory:
         cwes = self.soup.findAll('a', text=re.compile("CWE-"))
         for cwe in cwes:
             id = cwe.getText()
-            id = re.sub("[A-Za-z0-9;,:\s]* CWE-","",id)
+            id = re.sub("[A-Za-z0-9;,:\s\-\(\)\"\']* CWE-","CWE-",id)
             self.cwe += [id]
             pageCWE = opener.open(cwe.get('href'))
             soupCWE = BeautifulSoup(pageCWE, 'html.parser')
