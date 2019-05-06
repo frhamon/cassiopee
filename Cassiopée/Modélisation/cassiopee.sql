@@ -26,7 +26,8 @@ CREATE TABLE `countries` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(2) NOT NULL DEFAULT '',
   `name` char(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UC_countries` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,13 +55,13 @@ CREATE TABLE `cve` (
   `cvss` smallint(5) unsigned NOT NULL,
   `cwe` smallint(5) unsigned NOT NULL,
   `name` char(255) DEFAULT NULL,
-  `link` char(255) DEFAULT NULL,
+  `link` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cve_cvss` (`cvss`),
   KEY `fk_cve_cwe` (`cwe`),
   CONSTRAINT `fk_cve_cvss` FOREIGN KEY (`cvss`) REFERENCES `cvss` (`id`),
   CONSTRAINT `fk_cve_cwe` FOREIGN KEY (`cwe`) REFERENCES `cwe` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +93,7 @@ CREATE TABLE `cvss` (
   `score` decimal(3,1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_cvss` (`AV`,`AC`,`PR`,`UI`,`S`,`C`,`I`,`A`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,10 +118,11 @@ CREATE TABLE `cwe` (
   `cweAbstraction` text DEFAULT NULL,
   `cweStructure` text DEFAULT NULL,
   `cweSFP2Cluster` smallint(5) unsigned NOT NULL,
+  `name` char(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cwe_cwesfp2cluster` (`cweSFP2Cluster`),
   CONSTRAINT `fk_cwe_cwesfp2cluster` FOREIGN KEY (`cweSFP2Cluster`) REFERENCES `sfp2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,8 +144,9 @@ DROP TABLE IF EXISTS `devicetype`;
 CREATE TABLE `devicetype` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `type` char(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UC_devicetype` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +155,7 @@ CREATE TABLE `devicetype` (
 
 LOCK TABLES `devicetype` WRITE;
 /*!40000 ALTER TABLE `devicetype` DISABLE KEYS */;
+INSERT INTO `devicetype` VALUES (1,'type');
 /*!40000 ALTER TABLE `devicetype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +174,7 @@ CREATE TABLE `icscert` (
   PRIMARY KEY (`id`),
   KEY `fk_icscert_patch` (`patch`),
   CONSTRAINT `fk_icscert_patch` FOREIGN KEY (`patch`) REFERENCES `patch` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +202,7 @@ CREATE TABLE `icscert_cve` (
   KEY `FK_icscert_cve__id_cve` (`id_cve`),
   CONSTRAINT `FK_icscert_cve__id_cve` FOREIGN KEY (`id_cve`) REFERENCES `cve` (`id`),
   CONSTRAINT `FK_icscert_cve__id_icscert` FOREIGN KEY (`id_icscert`) REFERENCES `icscert` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +230,7 @@ CREATE TABLE `icscert_product` (
   KEY `FK_icscert_product__id_product` (`id_product`),
   CONSTRAINT `FK_icscert_product__id_icscert` FOREIGN KEY (`id_icscert`) REFERENCES `icscert` (`id`),
   CONSTRAINT `FK_icscert_product__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,8 +252,9 @@ DROP TABLE IF EXISTS `patch`;
 CREATE TABLE `patch` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `patch` char(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UC_patch` (`patch`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,6 +263,7 @@ CREATE TABLE `patch` (
 
 LOCK TABLES `patch` WRITE;
 /*!40000 ALTER TABLE `patch` DISABLE KEYS */;
+INSERT INTO `patch` VALUES (29,'Default Patch Name'),(1,'nom de patch de remplacement');
 /*!40000 ALTER TABLE `patch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,20 +277,16 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
-  `sector` smallint(5) unsigned NOT NULL,
-  `countriesDeployed` int(11) DEFAULT NULL,
   `deviceYN` tinyint(4) DEFAULT NULL,
   `deviceType` smallint(5) unsigned NOT NULL,
   `deviceComment` text DEFAULT NULL,
   `vendor` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_product_sector` (`sector`),
   KEY `fk_product_deviceType` (`deviceType`),
   KEY `fk_product_vendor` (`vendor`),
   CONSTRAINT `fk_product_deviceType` FOREIGN KEY (`deviceType`) REFERENCES `devicetype` (`id`),
-  CONSTRAINT `fk_product_sector` FOREIGN KEY (`sector`) REFERENCES `sector` (`id`),
   CONSTRAINT `fk_product_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +314,7 @@ CREATE TABLE `product_countries` (
   KEY `FK_product_countries__id_countries` (`id_countries`),
   CONSTRAINT `FK_product_countries__id_countries` FOREIGN KEY (`id_countries`) REFERENCES `countries` (`id`),
   CONSTRAINT `FK_product_countries__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,6 +324,34 @@ CREATE TABLE `product_countries` (
 LOCK TABLES `product_countries` WRITE;
 /*!40000 ALTER TABLE `product_countries` DISABLE KEYS */;
 /*!40000 ALTER TABLE `product_countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_sector`
+--
+
+DROP TABLE IF EXISTS `product_sector`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_sector` (
+  `id_product_sector` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `id_product` smallint(5) unsigned NOT NULL,
+  `id_sector` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`id_product_sector`),
+  UNIQUE KEY `UQ_product_sector__id_product__id_sector` (`id_product`,`id_sector`),
+  KEY `fk_product_sector__id_sector` (`id_sector`),
+  CONSTRAINT `fk_product_sector__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
+  CONSTRAINT `fk_product_sector__id_sector` FOREIGN KEY (`id_sector`) REFERENCES `sector` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_sector`
+--
+
+LOCK TABLES `product_sector` WRITE;
+/*!40000 ALTER TABLE `product_sector` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_sector` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -336,7 +366,7 @@ CREATE TABLE `sector` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_sector` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,7 +390,7 @@ CREATE TABLE `sfp1` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_sfp1` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,7 +417,7 @@ CREATE TABLE `sfp2` (
   UNIQUE KEY `UC_sfp2` (`name`),
   KEY `fk_sfp2_sfp1` (`sfp1`),
   CONSTRAINT `fk_sfp2_sfp1` FOREIGN KEY (`sfp1`) REFERENCES `sfp1` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,7 +442,7 @@ CREATE TABLE `vendor` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_vendor` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,4 +463,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-21 20:34:07
+-- Dump completed on 2019-05-06 16:55:44

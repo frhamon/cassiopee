@@ -22,84 +22,142 @@ class Advisory:
 
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
 
-        # db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
-        # c = db.cursor()
-        #
-        # c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
-        #
-        #
-        # for i in range(len(self.cve)):
-        #     c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
-        #
-        #     db.commit()
-        #
-        #     c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
-        #     sfp1_id = c.fetchone()
-        #
-        #     c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
-        #
-        #     db.commit()
-        #
-        #     c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
-        #     sfp2_id = c.fetchone()
-        #
-        #     c.execute(""" insert into cwe values (default , %s, %s, %s, %s)""", (self.cwe_link[i],
-        #                                                                          self.abstraction[i],
-        #                                                                          self.structure[i],
-        #                                                                          sfp2_id[0]))
-        #
-        #     cwe_id = c.lastrowid
-        #     c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
-        #                                                                                              self.cvss[i][1][-1],
-        #                                                                                              self.cvss[i][2][-1],
-        #                                                                                              self.cvss[i][3][-1],
-        #                                                                                              self.cvss[i][4][-1],
-        #                                                                                              self.cvss[i][5][-1],
-        #                                                                                              self.cvss[i][6][-1],
-        #                                                                                              self.cvss[i][7][-1],
-        #                                                                                              self.score[i]))
-        #
-        #     db.commit()
-        #
-        #     c.execute(""" select id from cvss where
-        #     av = %s and
-        #     ac = %s and
-        #     pr = %s and
-        #     ui = %s and
-        #     s = %s and
-        #     c = %s and
-        #     i = %s and
-        #     a = %s """,
-        #               ((self.cvss[i][0][-1],
-        #                 self.cvss[i][1][-1],
-        #                 self.cvss[i][2][-1],
-        #                 self.cvss[i][3][-1],
-        #                 self.cvss[i][4][-1],
-        #                 self.cvss[i][5][-1],
-        #                 self.cvss[i][6][-1],
-        #                 self.cvss[i][7][-1])))
-        #     cvss_id = c.fetchone()
-        #     c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
-        #                                                                                  self.cve_text[i],
-        #                                                                                  cvss_id[0],
-        #                                                                                  cwe_id,
-        #                                                                                  self.cve[i],
-        #                                                                                  self.cve_link[i]))
-        #
-        # for i in range(len(self.sector)):
-        #     c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[i],))
-        #     db.commit()
-        # c.close()
-        # db.close()
+
+        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
+        c = db.cursor()
+
+        c.execute(""" insert ignore into patch values(DEFAULT , 'Default Patch Name') """)
+
+        db.commit()
+
+        c.execute(""" select id from patch where patch='Default Patch Name'  """)
+        patch_id = c.fetchone()
+
+        c.execute(""" insert into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
+
+        db.commit()
+
+        c.execute(""" select id from icscert where name=%s """, (self.ics,))
+        icscert_id = c.fetchone()
+
+        for i in range(len(self.cve)):
+            c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
+
+            db.commit()
+
+            c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
+            sfp1_id = c.fetchone()
+
+            c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
+
+            db.commit()
+
+            c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
+            sfp2_id = c.fetchone()
+
+            c.execute(""" insert into cwe values (default , %s, %s, %s, %s, %s)""", (self.cwe_link[i],
+                                                                                     self.abstraction[i],
+                                                                                     self.structure[i],
+                                                                                     sfp2_id[0],
+                                                                                     self.cwe[i]))
+
+            cwe_id = c.lastrowid
+            c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
+                                                                                                     self.cvss[i][1][-1],
+                                                                                                     self.cvss[i][2][-1],
+                                                                                                     self.cvss[i][3][-1],
+                                                                                                     self.cvss[i][4][-1],
+                                                                                                     self.cvss[i][5][-1],
+                                                                                                     self.cvss[i][6][-1],
+                                                                                                     self.cvss[i][7][-1],
+                                                                                                     self.score[i]))
+
+            db.commit()
+
+            c.execute(""" select id from cvss where 
+            av = %s and 
+            ac = %s and 
+            pr = %s and 
+            ui = %s and 
+            s = %s and 
+            c = %s and 
+            i = %s and 
+            a = %s """,
+                      ((self.cvss[i][0][-1],
+                        self.cvss[i][1][-1],
+                        self.cvss[i][2][-1],
+                        self.cvss[i][3][-1],
+                        self.cvss[i][4][-1],
+                        self.cvss[i][5][-1],
+                        self.cvss[i][6][-1],
+                        self.cvss[i][7][-1])))
+            cvss_id = c.fetchone()
+            c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
+                                                                                         self.cve_text[i],
+                                                                                         cvss_id[0],
+                                                                                         cwe_id,
+                                                                                         self.cve[i],
+                                                                                         self.cve_link[i]))
+
+            db.commit()
+
+            c.execute(""" select id from cve where name=%s """, (self.cve[i],))
+            cve_id = c.fetchone()
+
+            c.execute(""" insert ignore into icscert_cve values (default , %s, %s)""", (icscert_id[0], cve_id[0]))
+
+        c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+
+        c.execute(""" insert ignore into devicetype values (default , 'type')""")
+
+        db.commit
+
+        c.execute(""" select id from devicetype where type='type' """)
+        devicetype_id = c.fetchone()
+
+        c.execute(""" select id from vendor where name = %s """, (self.vendor,))
+        vendor_id = c.fetchone()
+
+        c.execute(""" insert into product values (default , %s, 0, %s, 'Device Comment', %s)""", (self.product,
+                                                                                                  devicetype_id[0],
+                                                                                                  vendor_id[0]))
+
+        db.commit()
+
+        c.execute(""" select id from product where name = %s """, (self.product,))
+        product_id = c.fetchone()
+
+        for i in range(len(self.sector)):
+            c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[i],))
+            db.commit()
+            c.execute(""" select id from sector where name = %s """, (self.sector[i],))
+            sector_id = c.fetchone()
+            c.execute(""" insert ignore into product_sector values (default , %s, %s)""", (product_id[0], sector_id[0]))
+
+        for i in range(len(self.countries)):
+            c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
+            countries_id = c.fetchone()
+            c.execute(""" insert ignore into product_countries values (default , %s, %s)""", (product_id[0],
+                                                                                              countries_id))
+
+        c.execute(""" select id from product where name=%s """, (self.product,))
+        product_id = c.fetchone()
+
+        c.execute(""" insert into icscert_product values (default , %s, %s)""", (icscert_id, product_id))
+
+        c.close()
+        db.close()
 
 
         # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
-        print(self.ics)
-        print(self.ics_date)
+        print(self.ics) #ajouté en base
+        print(self.ics_date) #ajouté en base
         print()
-        print(self.product)
-        print(self.sector)
-        print(self.countries)
+        print(self.product) #ajouté en base
+        print(self.sector) #ajouté en base
+        print(self.countries) #ajouté en base
+        print(self.location)
+        print(self.vendor)
         print()
         print(self.cve) #ajouté en base
         print(self.cve_link) #ajouté en base
