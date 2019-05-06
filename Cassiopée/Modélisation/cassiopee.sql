@@ -70,7 +70,6 @@ CREATE TABLE `cve` (
 
 LOCK TABLES `cve` WRITE;
 /*!40000 ALTER TABLE `cve` DISABLE KEYS */;
-INSERT INTO `cve` VALUES (257,'2017-01-01','The application utilizes hard coded username and password credentials for application login.',285,268,'CVE-2017-14728','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14728'),(258,'2017-01-01','The application web interface does not properly neutralize user-controllable input, which could allow cross-site scripting.',286,269,'CVE-2017-14850','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14850'),(259,'2017-01-01','The application does not properly sanitize external input, which may allow an attacker to access the product by specially crafted input.',287,270,'CVE-2017-14851','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14851'),(260,'2017-01-01','The application transmits information in plain text, including credentials, which could allow an attacker with access to transmitted data to obtain credentials and bypass authentication.',288,271,'CVE-2017-14852','https://nvd.nist.gov/vuln/detail/CVE-2017-14852'),(261,'2017-01-01','The application does not properly restrict syntax from external input, which could allow unauthenticated users to execute specially crafted code on the target system.',289,272,'CVE-2017-14853','https://nvd.nist.gov/vuln/detail/CVE-2017-14853'),(262,'2017-01-01','The application utilizes a function that accepts user input. This input is not properly validated, which could allow an attacker to execute arbitrary code.',290,273,'CVE-2017-14854','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14854'),(263,'2019-01-01','A non-administrative user may place malicious files within the installer file directory, which may allow an attacker to gain administrative privileges on a system during installation or upgrade.',291,274,'CVE-2019-6564','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6564'),(264,'2019-01-01','An attacker may place malicious files within the working directory of the program, which may allow an attacker to manipulate widgets and UI elements.',291,275,'CVE-2019-6546','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6546'),(265,'2019-01-01','Two backdoor accounts with hardcoded credentials exist, which may allow control over the database. This service is inaccessible to attackers if Windows default firewall settings are used by the end user.',293,276,'CVE-2019-6548','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6548'),(266,'2019-01-01','A service running with system privileges may allow an unprivileged user to perform certain administrative actions, which may allow the execution of scheduled scripts with system administrator privileges. This service is inaccessible to attackers if Windows default firewall settings are used by the end user.',294,277,'CVE-2019-6544','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6544'),(267,'2019-01-01','A non-administrative user may replace the uninstaller with a malicious version, which could allow an attacker to gain administrator privileges to the system.',295,278,'CVE-2019-6566','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6566'),(268,'2018-01-01','A specially crafted authenticated HTTP request can inject arbitrary commands, resulting in remote code execution.',296,279,'CVE-2018-4061','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4061'),(269,'2018-01-01','Activating SNMPD outside of the WebUI can cause the activation of the hard-coded credentials, resulting in the exposure of a privileged user. An attacker can activate SNMPD without any configuration changes to trigger this vulnerability.',297,280,'CVE-2018-4062','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4062'),(270,'2018-01-01','A specially crafted authenticated HTTP request can upload a file, resulting in an executable, routable code upload to the web server.',296,281,'CVE-2018-4063','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4063');
 /*!40000 ALTER TABLE `cve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +102,6 @@ CREATE TABLE `cvss` (
 
 LOCK TABLES `cvss` WRITE;
 /*!40000 ALTER TABLE `cvss` DISABLE KEYS */;
-INSERT INTO `cvss` VALUES (285,'N','L','N','N','U','H','H','H',9.8),(286,'N','L','N','R','C','L','L','N',6.1),(287,'N','L','N','N','U','H','H','L',9.4),(288,'N','L','N','N','U','H','L','L',8.6),(289,'N','L','N','N','U','L','H','L',8.6),(290,'N','L','N','N','U','N','H',')',9.1),(291,'L','L','N','R','U','H','H','H',7.8),(293,'N','H','N','N','U','H','H','H',8.1),(294,'N','H','N','N','U','L','L','L',5.6),(295,'L','L','L','R','U','H','H','H',7.3),(296,'N','L','H','N','C','H','H','H',9.1),(297,'N','H','H','N','U','H','L','H',6.2);
 /*!40000 ALTER TABLE `cvss` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +131,6 @@ CREATE TABLE `cwe` (
 
 LOCK TABLES `cwe` WRITE;
 /*!40000 ALTER TABLE `cwe` DISABLE KEYS */;
-INSERT INTO `cwe` VALUES (268,'https://cwe.mitre.org/data/definitions/798','Base','Simple',274,'CWE-798'),(269,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',275,'CWE-79(\'Cross-site Scripting\')'),(270,'https://cwe.mitre.org/data/definitions/89.html','Base','Simple',275,'CWE-89(\'SQL Injection\')'),(271,'https://cwe.mitre.org/data/definitions/311.html','Base','Simple',277,'CWE-311'),(272,'https://cwe.mitre.org/data/definitions/94.html','Class','Simple',278,'CWE-94(\'Code Injection\')'),(273,'https://cwe.mitre.org/data/definitions/121.html','Variant','Simple',279,'CWE-121'),(274,'https://cwe.mitre.org/data/definitions/427.html','Base','Simple',278,'CWE-427'),(275,'https://cwe.mitre.org/data/definitions/427.html','Base','Simple',278,'CWE-427'),(276,'https://cwe.mitre.org/data/definitions/798.html','Base','Simple',274,'CWE-798'),(277,'https://cwe.mitre.org/data/definitions/284.html','Class','Simple',283,'CWE-284'),(278,'https://cwe.mitre.org/data/definitions/284.html','Class','Simple',283,'CWE-284'),(279,'https://cwe.mitre.org/data/definitions/78.html','Base','Simple',275,'CWE-78(\'OS Command Injection\')'),(280,'https://cwe.mitre.org/data/definitions/798.html','Base','Simple',274,'CWE-798'),(281,'https://cwe.mitre.org/data/definitions/434.html','Base','Simple',274,'CWE-434'),(282,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',275,'CWE-79(\'Cross-site Scripting\')');
 /*!40000 ALTER TABLE `cwe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +183,6 @@ CREATE TABLE `icscert` (
 
 LOCK TABLES `icscert` WRITE;
 /*!40000 ALTER TABLE `icscert` DISABLE KEYS */;
-INSERT INTO `icscert` VALUES (44,'2019-05-02',29,'ICSA-19-122-01'),(45,'2019-05-02',29,'ICSA-19-122-02'),(46,'2019-05-02',29,'ICSA-19-122-03');
 /*!40000 ALTER TABLE `icscert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +211,6 @@ CREATE TABLE `icscert_cve` (
 
 LOCK TABLES `icscert_cve` WRITE;
 /*!40000 ALTER TABLE `icscert_cve` DISABLE KEYS */;
-INSERT INTO `icscert_cve` VALUES (99,44,257),(100,44,258),(101,44,259),(102,44,260),(103,44,261),(104,44,262),(105,45,263),(106,45,264),(107,45,265),(108,45,266),(109,45,267),(110,46,268),(111,46,269),(112,46,270);
 /*!40000 ALTER TABLE `icscert_cve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +295,6 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (61,'SiteOmat',0,1,'Device Comment',200),(62,'Communicator',0,1,'Device Comment',201);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +351,6 @@ CREATE TABLE `product_sector` (
 
 LOCK TABLES `product_sector` WRITE;
 /*!40000 ALTER TABLE `product_sector` DISABLE KEYS */;
-INSERT INTO `product_sector` VALUES (39,61,167),(40,61,168),(42,62,170);
 /*!40000 ALTER TABLE `product_sector` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,7 +375,6 @@ CREATE TABLE `sector` (
 
 LOCK TABLES `sector` WRITE;
 /*!40000 ALTER TABLE `sector` DISABLE KEYS */;
-INSERT INTO `sector` VALUES (167,'Commercial Facilities'),(170,'Critical Manufacturing'),(168,'Energy'),(169,'Transportation Systems');
 /*!40000 ALTER TABLE `sector` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,7 +399,6 @@ CREATE TABLE `sfp1` (
 
 LOCK TABLES `sfp1` WRITE;
 /*!40000 ALTER TABLE `sfp1` DISABLE KEYS */;
-INSERT INTO `sfp1` VALUES (289,'Access Control'),(283,'Information Leak'),(285,'Memory Access'),(280,'None'),(281,'Tainted Input');
 /*!40000 ALTER TABLE `sfp1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +426,6 @@ CREATE TABLE `sfp2` (
 
 LOCK TABLES `sfp2` WRITE;
 /*!40000 ALTER TABLE `sfp2` DISABLE KEYS */;
-INSERT INTO `sfp2` VALUES (274,'None',280),(275,'Tainted Input to Command',281),(277,'Exposed Data',283),(278,'Tainted Input to Environment',281),(279,'Faulty Buffer Access',285),(283,'Access Management',289);
 /*!40000 ALTER TABLE `sfp2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,7 +451,6 @@ CREATE TABLE `vendor` (
 
 LOCK TABLES `vendor` WRITE;
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
-INSERT INTO `vendor` VALUES (200,'Israel','Orpak (acquired by Gilbarco Veeder-Root)'),(201,'United States','General Electric');
 /*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -474,4 +463,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-06 16:51:26
+-- Dump completed on 2019-05-06 16:55:44
