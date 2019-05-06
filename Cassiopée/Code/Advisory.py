@@ -6,7 +6,7 @@ import MySQLdb as mdb
 
 """
 ICS-CERT n'accepte pas les requetes ne venant pas de navigateurs,
-on change alors le User-Agent de nos requete pour se faire passer
+on change alors le User-Agent de nos requetes pour se faire passer
 pour Mozilla Firefox:
 """
 class AppURLopener(urllib.request.FancyURLopener):
@@ -22,75 +22,75 @@ class Advisory:
 
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
 
-        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
-        c = db.cursor()
-
-        c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
-
-
-        for i in range(len(self.cve)):
-            c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
-
-            db.commit()
-
-            c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
-            sfp1_id = c.fetchone()
-
-            c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
-
-            db.commit()
-
-            c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
-            sfp2_id = c.fetchone()
-
-            c.execute(""" insert into cwe values (default , %s, %s, %s, %s)""", (self.cwe_link[i],
-                                                                                 self.abstraction[i],
-                                                                                 self.structure[i],
-                                                                                 sfp2_id[0]))
-
-            cwe_id = c.lastrowid
-            c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
-                                                                                                     self.cvss[i][1][-1],
-                                                                                                     self.cvss[i][2][-1],
-                                                                                                     self.cvss[i][3][-1],
-                                                                                                     self.cvss[i][4][-1],
-                                                                                                     self.cvss[i][5][-1],
-                                                                                                     self.cvss[i][6][-1],
-                                                                                                     self.cvss[i][7][-1],
-                                                                                                     self.score[i]))
-
-            db.commit()
-
-            c.execute(""" select id from cvss where 
-            av = %s and 
-            ac = %s and 
-            pr = %s and 
-            ui = %s and 
-            s = %s and 
-            c = %s and 
-            i = %s and 
-            a = %s """,
-                      ((self.cvss[i][0][-1],
-                        self.cvss[i][1][-1],
-                        self.cvss[i][2][-1],
-                        self.cvss[i][3][-1],
-                        self.cvss[i][4][-1],
-                        self.cvss[i][5][-1],
-                        self.cvss[i][6][-1],
-                        self.cvss[i][7][-1])))
-            cvss_id = c.fetchone()
-            c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
-                                                                                         self.cve_text[i],
-                                                                                         cvss_id[0],
-                                                                                         cwe_id,
-                                                                                         self.cve[i],
-                                                                                         self.cve_link[i]))
-
-        for i in range(len(self.sector)):
-            c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[i],))
-            db.commit()
-        c.close()
-        db.close()
+        # db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
+        # c = db.cursor()
+        #
+        # c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
+        #
+        #
+        # for i in range(len(self.cve)):
+        #     c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
+        #
+        #     db.commit()
+        #
+        #     c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
+        #     sfp1_id = c.fetchone()
+        #
+        #     c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
+        #
+        #     db.commit()
+        #
+        #     c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
+        #     sfp2_id = c.fetchone()
+        #
+        #     c.execute(""" insert into cwe values (default , %s, %s, %s, %s)""", (self.cwe_link[i],
+        #                                                                          self.abstraction[i],
+        #                                                                          self.structure[i],
+        #                                                                          sfp2_id[0]))
+        #
+        #     cwe_id = c.lastrowid
+        #     c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
+        #                                                                                              self.cvss[i][1][-1],
+        #                                                                                              self.cvss[i][2][-1],
+        #                                                                                              self.cvss[i][3][-1],
+        #                                                                                              self.cvss[i][4][-1],
+        #                                                                                              self.cvss[i][5][-1],
+        #                                                                                              self.cvss[i][6][-1],
+        #                                                                                              self.cvss[i][7][-1],
+        #                                                                                              self.score[i]))
+        #
+        #     db.commit()
+        #
+        #     c.execute(""" select id from cvss where
+        #     av = %s and
+        #     ac = %s and
+        #     pr = %s and
+        #     ui = %s and
+        #     s = %s and
+        #     c = %s and
+        #     i = %s and
+        #     a = %s """,
+        #               ((self.cvss[i][0][-1],
+        #                 self.cvss[i][1][-1],
+        #                 self.cvss[i][2][-1],
+        #                 self.cvss[i][3][-1],
+        #                 self.cvss[i][4][-1],
+        #                 self.cvss[i][5][-1],
+        #                 self.cvss[i][6][-1],
+        #                 self.cvss[i][7][-1])))
+        #     cvss_id = c.fetchone()
+        #     c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
+        #                                                                                  self.cve_text[i],
+        #                                                                                  cvss_id[0],
+        #                                                                                  cwe_id,
+        #                                                                                  self.cve[i],
+        #                                                                                  self.cve_link[i]))
+        #
+        # for i in range(len(self.sector)):
+        #     c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[i],))
+        #     db.commit()
+        # c.close()
+        # db.close()
 
 
         # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
@@ -315,39 +315,50 @@ class Advisory:
         """
         cwes = self.soup.findAll('a', text=re.compile("CWE-"))
         for cwe in cwes:
+            id = cwe.getText()
+            id = re.sub("[A-Za-z0-9;,:\s]* CWE-","",id)
+            self.cwe += [id]
             pageCWE = opener.open(cwe.get('href'))
             soupCWE = BeautifulSoup(pageCWE, 'html.parser')
-            id = soupCWE.find('h2', text=re.compile('CWE-')).getText()
-            id = re.sub(": [A-Za-z-\s]*","",id)
-            self.cwe += [id]
 
-            cwe_link = cwe.get('href')
-            self.cwe_link += [cwe_link]
-
-            abstruct=soupCWE.find("div",text=re.compile('Weakness')).next_sibling.getText()
-            abs = re.sub("Abstraction: ","",abstruct)
-            abs = re.sub("Structure: [A-Za-z:\s]*","",abs)
-            abs = re.sub(" ", "", abs)
-            struct = re.sub("[A-Za-z:\s]*: ","",abstruct)
-            self.abstraction += [abs]
-            self.structure += [struct]
-
-            sfp2 = soupCWE.find("a",text=re.compile('SFP Secondary'))
-
-            # Possible absence de SFP2 :
-            if sfp2 != None:
-                addr = re.sub("/data[A-Za-z0-9/\-:.\s]*",sfp2.get('href'),cwe.get('href'))
-                pageSFP1 = opener.open(addr)
-                soupSFP1 = BeautifulSoup(pageSFP1, 'html.parser')
-                sfp2 = sfp2.getText()
-                sfp2 = re.sub("[A-Z-a-z\s]*: ","",sfp2)
-                self.sfp2 += [sfp2]
-
-
-                sfp1 = soupSFP1.find('a', text=re.compile('SFP Primary'))
-                sfp1 = sfp1.getText()
-                sfp1 = re.sub('[A-Za-z\s]*: ','',sfp1)
-                self.sfp1 += [sfp1]
-            else:
+            # Si l'id désigne une classe de CWE :
+            if soupCWE.find('h2', text=re.compile('CWE-')) == None:
+                cwe_link = cwe.get('href')
+                self.cwe_link += [cwe_link]
+                self.abstraction += ["None"]
+                self.structure += ["class"]
                 self.sfp2 += ["None"]
                 self.sfp1 += ["None"]
+
+            # Si l'id désigne un CWE classique :
+            else:
+                cwe_link = cwe.get('href')
+                self.cwe_link += [cwe_link]
+
+                abstruct=soupCWE.find("div",text=re.compile('Weakness')).next_sibling.getText()
+                abs = re.sub("Abstraction: ","",abstruct)
+                abs = re.sub("Structure: [A-Za-z:\s]*","",abs)
+                abs = re.sub(" ", "", abs)
+                struct = re.sub("[A-Za-z:\s]*: ","",abstruct)
+                self.abstraction += [abs]
+                self.structure += [struct]
+
+                sfp2 = soupCWE.find("a",text=re.compile('SFP Secondary'))
+
+                # Possible absence de SFP2 :
+                if sfp2 != None:
+                    addr = re.sub("/data[A-Za-z0-9/\-:.\s]*",sfp2.get('href'),cwe.get('href'))
+                    pageSFP1 = opener.open(addr)
+                    soupSFP1 = BeautifulSoup(pageSFP1, 'html.parser')
+                    sfp2 = sfp2.getText()
+                    sfp2 = re.sub("[A-Z-a-z\s]*: ","",sfp2)
+                    self.sfp2 += [sfp2]
+
+
+                    sfp1 = soupSFP1.find('a', text=re.compile('SFP Primary'))
+                    sfp1 = sfp1.getText()
+                    sfp1 = re.sub('[A-Za-z\s]*: ','',sfp1)
+                    self.sfp1 += [sfp1]
+                else:
+                    self.sfp2 += ["None"]
+                    self.sfp1 += ["None"]
