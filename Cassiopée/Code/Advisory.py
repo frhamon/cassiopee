@@ -22,8 +22,7 @@ class Advisory:
 
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
 
-
-        db = mdb.Connection(host='localhost', db='cassiopee', passwd='mathaouiz09', user='root', charset='utf8')
+        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root', charset='utf8')
         c = db.cursor()
 
         c.execute(""" insert ignore into patch values(DEFAULT , 'Default Patch Name') """)
@@ -144,6 +143,8 @@ class Advisory:
         product_id = c.fetchone()
 
         c.execute(""" insert into icscert_product values (default , %s, %s)""", (icscert_id, product_id))
+
+        db.commit()
 
         c.close()
         db.close()
