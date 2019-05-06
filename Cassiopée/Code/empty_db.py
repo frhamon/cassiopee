@@ -1,6 +1,6 @@
 import MySQLdb as mdb
 
-db = mdb.Connection(host='localhost', db='cassiopee', passwd='mathaouiz09', user='root')
+db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root')
 
 c = db.cursor()
 

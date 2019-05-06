@@ -214,7 +214,7 @@ class Advisory:
         self.sector = self.parser_parent("SECTORS").split(", ")
 
         # Pays où le produit est disponible
-        self.countries = self.parser_parent("DEPLOYED")
+        self.countries = self.parser_parent("DEPLOYED").split(", ")
 
 
         # Liste des CVE (possibilité d'avoir plusieurs CVE par advisory)
