@@ -24,7 +24,7 @@ soup = BeautifulSoup(page,'html.parser')
 urls = soup.findAll('a',href=re.compile('/advisories/I'))
 
 # Récupère et envoie en bdd les données des 10 premiers advisories
-for i in range(10):
+for i in range(15):
     url = urls[i].get('href')
     url = "https://ics-cert.us-cert.gov"+url
     adv = Advisory(url)
