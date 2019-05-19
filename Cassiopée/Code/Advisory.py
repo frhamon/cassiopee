@@ -22,7 +22,7 @@ class Advisory:
 
         # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
 
-        db = mdb.Connection(host='localhost', db='cassiopee', passwd='clochette', user='root', charset='utf8')
+        db = mdb.Connection(host='localhost', db='cassiopee', passwd=self.mdp, user='root', charset='utf8')
         c = db.cursor()
 
         c.execute(""" insert ignore into patch values(DEFAULT , 'Default Patch Name') """)
@@ -150,32 +150,12 @@ class Advisory:
         db.close()
 
 
-        # Print toutes les données récupérées de l'advisory (a enlever une fois que la mise en bdd est réussie)
-        print(self.ics) #ajouté en base
-        print(self.ics_date) #ajouté en base
-        print()
-        print(self.product) #ajouté en base
-        print(self.sector) #ajouté en base
-        print(self.countries) #ajouté en base
-        print(self.location)
-        print(self.vendor)
-        print()
-        print(self.cve) #ajouté en base
-        print(self.cve_link) #ajouté en base
-        print(self.cve_date) #ajouté en base
-        print(self.cve_text) #ajouté en base
-        print()
-        print(self.cvss) #ajouté en base
-        print(self.score) #ajouté en base
-        print()
-        print(self.cwe) #ajouté en base
-        print(self.cwe_link) #ajouté en base
-        print(self.abstraction) #ajouté en base
-        print(self.structure) #ajouté en base
-        print(self.sfp1) #ajouté en base
-        print(self.sfp2) #ajouté en base
+        # Print
+        print(self.ics + " mis en base")
 
-    def __init__(self,url):
+    def __init__(self,url, mdp):
+        self.mdp = mdp
+
         # Récupération du code html de l'url de l'advisory
         page = opener.open(url)
         self.soup = BeautifulSoup(page, 'html.parser')
