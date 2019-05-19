@@ -1,22 +1,20 @@
 from getpass import getpass
 
 import MySQLdb as mdb
-import empty_db
-import Main
-import make_graph
+import fill_db
 
 
 mdp = getpass(prompt='Veuillez rentrer votre mot de passe mysql: ')
 while(True):
-    #empty_db.empty(mdp)
 
     try :
-        Main.main(mdp)
+        fill_db.fill(mdp)
+        break
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:
         if (e.args[0] == 1045):
             print("Mot de passe incorrect")
             print()
-            mdp = input("Veuillez rentrer votre mot de passe mysql: ")
+            mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
         elif (e.args[0] == 1049):
             print()
             print("Création de la base de donnée et de son schéma...")
@@ -42,30 +40,12 @@ while(True):
                     cursor.execute(command)
             print("Base de données créée, prête à être remplie")
             print()
-        elif(e.args[0] == 1062):
-            print()
-            print()
-            print("La base de données est à jour")
-            print()
-            break
         else:
             raise(e)
 
 
 
 
-print("Voici la liste des graphes disponibles: ")
-print("1. Premier graphe")
-print()
-print("Pour afficher un graphe, tapez 'i' avec i le numero du graphe")
-print("Pour réafficher la liste des graphes, tapez 'list' ")
-print("Pour quitter, tapez 'quit' ")
 print();print()
-
-while(True):
-    cmd = input("Tapez votre commande: ")
-    if(cmd == '1'):
-        make_graph.graph(mdp)
-    elif(cmd == 'quit'):
-        break
-
+print("Base données remplie, prête pour le traitement des données")
+print("Veuillez exécuter application.py pour lancer l'applciation")

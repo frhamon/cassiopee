@@ -32,7 +32,5 @@ def graph(mdp):
     # Crée une colonne qui compte le nombre de CVE par date
     df['count'] = df.date.map(df.groupby('date').size())
 
-    print(df)
-
     df.plot(x='date')
     plt.show()
