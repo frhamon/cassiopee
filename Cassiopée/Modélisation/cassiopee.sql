@@ -61,7 +61,7 @@ CREATE TABLE `cve` (
   KEY `fk_cve_cwe` (`cwe`),
   CONSTRAINT `fk_cve_cvss` FOREIGN KEY (`cvss`) REFERENCES `cvss` (`id`),
   CONSTRAINT `fk_cve_cwe` FOREIGN KEY (`cwe`) REFERENCES `cwe` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=437 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +70,7 @@ CREATE TABLE `cve` (
 
 LOCK TABLES `cve` WRITE;
 /*!40000 ALTER TABLE `cve` DISABLE KEYS */;
+INSERT INTO `cve` VALUES (393,'2018-01-01','The device has predictable TCP initial sequence numbers that allow attackers to hijack TCP connections carrying unsecured communications.',422,405,'CVE-2018-7838','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7838'),(394,'2019-01-01','An out-of-bounds read vulnerability has been identified, which may crash the system.',423,406,'CVE-2019-10975','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10975'),(395,'2019-01-01','The application searches for resources by means of an untrusted search path that could execute a malicious .dll file not under the application\'s direct control and outside the intended directories.',424,407,'CVE-2019-10971','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10971'),(396,'2019-05-14','If affected installations do not have “Encrypted Communication” configured, an unauthenticated attacker with network access may be able to execute arbitrary code.',425,408,'CVE-2019-10922','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10922'),(397,'2019-05-14','The vulnerability could allow an attacker to execute arbitrary code if the attacker tricks a legitimate user into opening a manipulated project. In order to exploit the vulnerability, a valid user must open a manipulated project file.',426,409,'CVE-2019-10924','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10924'),(398,'2019-05-14','Attackers with access to Port 10005/TCP could perform device reconfigurations and obtain project files from the devices.',427,410,'CVE-2019-10919','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10919'),(399,'2019-05-14','Project data stored on the device, which is accessible via Port 10005/TCP, can be decrypted due to a hardcoded encryption key.',428,411,'CVE-2019-10920','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10920'),(400,'2019-05-14','Unencrypted storage of passwords in the project could allow an attacker with access to Port 10005/TCP to obtain passwords of the device.',428,412,'CVE-2019-10921','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10921'),(401,'2019-05-14','Successful exploitation requires no privileges and no user interaction. An attacker with network access to the device could use the vulnerability to compromise availability of the affected system.',430,413,'CVE-2019-6578','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6578'),(402,'2019-05-14','An improperly configured parameter read/write execution via fieldbus network may cause the controller to restart. An attacker with access to the fieldbus network could cause a denial-of-service condition by sending specially crafted packets.The vulnerability could be exploited by an attacker with network access to the device. Successful exploitation requires no privileges and no user interaction. An attacker could use the vulnerability to compromise the availability of the affected system.',430,414,'CVE-2019-6574','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6574'),(403,'2019-05-10','An unauthenticated user with access to the web interface can execute arbitrary system commands within the underlying operating system, which may allow the attacker to copy files, read configuration, write files, delete files, or reboot the device.',425,415,'CVE-2018-7084','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7084'),(404,'2019-05-10','An unauthenticated attacker can access core dumps of previously crashed processes through the web interface of the device, which may allow disclosure of sensitive information.',428,416,'CVE-2018-7083','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7083'),(405,'2018-01-01','3.2.3    INFORMATION EXPOSURE CWE-200An unauthenticated user may retrieve recently cached configuration commands by sending a crafted URL to the web interface of an affected device, which may allow disclosure of sensitive information.',428,417,'CVE-2018-16417','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-16417'),(406,'2019-05-10','An authenticated administrative user can execute arbitrary commands on the underlying operating system.',435,418,'CVE-2018-7082','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7082'),(407,'2019-05-10','If an attacker can trick an administrator into clicking a link, they could then take administrative actions on the device or expose a session cookie for an administrative session.',436,419,'CVE-2018-7064','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7064'),(408,'2019-05-14','An attacker with network access to the project file could run arbitrary system commands with the privileges of the local database server. This may impact the confidentiality, integrity, and availability of the affected system.',437,420,'CVE-2019-10916','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10916'),(409,'2019-05-14','An attacker with local access to the project file could cause a denial-of-service condition on the affected product as the project file is loaded. Successful exploitation could compromise availability of the affected system.',423,421,'CVE-2019-10917','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10917'),(410,'2019-05-14','An authenticated attacker with network access to the DCOM interface could execute arbitrary commands with SYSTEM privileges. Successful exploitation could compromise confidentiality, integrity, and availability of the affected system.',439,422,'CVE-2019-10918','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-10918'),(411,'2019-05-14','The affected devices offer SNMP read/write capabilities with a hardcoded community string, which may allow an attacker to read/write variables over SNMP. This could compromise the confidentiality and integrity of the affected system.',440,423,'CVE-2019-6572','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6572'),(412,'2019-05-14','An attacker with network access could potentially obtain a TLS session key and use it to decrypt TLS traffic. This could impact the confidentiality of communications between the device and a legitimate user.',441,424,'CVE-2019-6576','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6576'),(413,'2019-05-14','The integrated web server could allow a cross-site scripting (XSS) attack if an attacker is able to modify certain device configuration settings via SNMP. This could impact confidentiality and integrity of the affected system.',442,425,'CVE-2019-6577','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6577'),(414,'2017-01-01','The application utilizes hard coded username and password credentials for application login.',425,426,'CVE-2017-14728','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14728'),(415,'2017-01-01','The application web interface does not properly neutralize user-controllable input, which could allow cross-site scripting.',444,427,'CVE-2017-14850','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14850'),(416,'2017-01-01','The application does not properly sanitize external input, which may allow an attacker to access the product by specially crafted input.',427,428,'CVE-2017-14851','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14851'),(417,'2017-01-01','The application transmits information in plain text, including credentials, which could allow an attacker with access to transmitted data to obtain credentials and bypass authentication.',446,429,'CVE-2017-14852','https://nvd.nist.gov/vuln/detail/CVE-2017-14852'),(418,'2017-01-01','The application does not properly restrict syntax from external input, which could allow unauthenticated users to execute specially crafted code on the target system.',447,430,'CVE-2017-14853','https://nvd.nist.gov/vuln/detail/CVE-2017-14853'),(419,'2017-01-01','The application utilizes a function that accepts user input. This input is not properly validated, which could allow an attacker to execute arbitrary code.',448,431,'CVE-2017-14854','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-14854'),(420,'2019-05-09','A non-administrative user may place malicious files within the installer file directory, which may allow an attacker to gain administrative privileges on a system during installation or upgrade.',426,432,'CVE-2019-6564','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6564'),(421,'2019-05-09','An attacker may place malicious files within the working directory of the program, which may allow an attacker to manipulate widgets and UI elements.',426,433,'CVE-2019-6546','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6546'),(422,'2019-05-09','Two backdoor accounts with hardcoded credentials exist, which may allow control over the database. This service is inaccessible to attackers if Windows default firewall settings are used by the end user.',451,434,'CVE-2019-6548','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6548'),(423,'2019-05-09','A service running with system privileges may allow an unprivileged user to perform certain administrative actions, which may allow the execution of scheduled scripts with system administrator privileges. This service is inaccessible to attackers if Windows default firewall settings are used by the end user.',452,435,'CVE-2019-6544','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6544'),(424,'2019-05-09','A non-administrative user may replace the uninstaller with a malicious version, which could allow an attacker to gain administrator privileges to the system.',424,436,'CVE-2019-6566','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6566'),(425,'2019-05-06','A specially crafted authenticated HTTP request can inject arbitrary commands, resulting in remote code execution.',437,437,'CVE-2018-4061','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4061'),(426,'2019-05-06','Activating SNMPD outside of the WebUI can cause the activation of the hard-coded credentials, resulting in the exposure of a privileged user. An attacker can activate SNMPD without any configuration changes to trigger this vulnerability.',455,438,'CVE-2018-4062','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4062'),(427,'2019-05-06','A specially crafted authenticated HTTP request can upload a file, resulting in an executable, routable code upload to the web server.',437,439,'CVE-2018-4063','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4063'),(428,'2019-05-06','A specially crafted HTTP ping request can cause reflected JavaScript to be executed and run on the user’s browser. An attacker can exploit this by convincing a user to click a link or embedded URL that redirects to the reflected cross-site scripting vulnerability.',444,440,'CVE-2018-4065','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4065'),(429,'2019-05-06','A specially crafted HTTP request can cause an authenticated user to perform privileged requests unknowingly, resulting in unauthenticated requests through an authenticated user. Triggering this vulnerability may allow an attacker access to authenticated pages via an authenticated user.',458,441,'CVE-2018-4066','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4066'),(430,'2019-05-06','A specially crafted authenticated HTTP request can cause an information leak, resulting in the disclosure of internal file paths.',459,442,'CVE-2018-4067','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4067'),(431,'2019-05-06','The ACEManager authentication functionality is delivered in plaintext XML to the web server. An attacker can listen to network traffic upstream from the device, which may allow access to credentials.',441,443,'CVE-2018-4069','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-4069'),(432,'2019-05-01','The software incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.',461,444,'CVE-2019-6562','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2019-6562'),(433,'2018-01-01','The device has predictable TCP initial sequence numbers that allow attackers to hijack TCP connections carrying unsecured communications.',422,445,'CVE-2018-7838','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7838'),(434,'2018-01-01','The device has predictable TCP initial sequence numbers that allow attackers to hijack TCP connections carrying unsecured communications.',422,446,'CVE-2018-7838','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7838'),(435,'2018-01-01','The device has predictable TCP initial sequence numbers that allow attackers to hijack TCP connections carrying unsecured communications.',422,447,'CVE-2018-7838','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7838'),(436,'2018-01-01','The device has predictable TCP initial sequence numbers that allow attackers to hijack TCP connections carrying unsecured communications.',422,448,'CVE-2018-7838','http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2018-7838');
 /*!40000 ALTER TABLE `cve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +94,7 @@ CREATE TABLE `cvss` (
   `score` decimal(3,1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_cvss` (`AV`,`AC`,`PR`,`UI`,`S`,`C`,`I`,`A`)
-) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=466 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,6 +103,7 @@ CREATE TABLE `cvss` (
 
 LOCK TABLES `cvss` WRITE;
 /*!40000 ALTER TABLE `cvss` DISABLE KEYS */;
+INSERT INTO `cvss` VALUES (422,'A','L','N','N','U','L','L','N',5.4),(423,'L','L','N','R','U','N','N','L',3.3),(424,'L','L','L','R','U','H','H','H',7.3),(425,'N','L','N','N','U','H','H','H',9.8),(426,'L','L','N','R','U','H','H','H',7.8),(427,'N','L','N','N','U','H','H','L',9.4),(428,'N','L','N','N','U','H','N','N',7.5),(430,'N','L','N','N','U','N','N','H',7.5),(435,'N','L','H','N','U','H','H','H',7.2),(436,'N','H','N','R','U','H','L','L',6.4),(437,'N','L','H','N','C','H','H','H',9.1),(439,'N','L','L','N','U','H','H','H',8.8),(440,'N','L','N','N','U','L','L','N',6.5),(441,'N','H','N','N','U','H','N','N',5.9),(442,'N','L','L','R','C','L','L','N',5.4),(444,'N','L','N','R','C','L','L','N',6.1),(446,'N','L','N','N','U','H','L','L',8.6),(447,'N','L','N','N','U','L','H','L',8.6),(448,'N','L','N','N','U','N','H',')',9.1),(451,'N','H','N','N','U','H','H','H',8.1),(452,'N','H','N','N','U','L','L','L',5.6),(455,'N','H','H','N','U','H','L','H',6.2),(458,'N','H','N','R','U','N','H','H',6.8),(459,'N','L','H','N','C','L','N','N',4.1),(461,'A','L','L','R','U','L','L','N',4.1);
 /*!40000 ALTER TABLE `cvss` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +124,7 @@ CREATE TABLE `cwe` (
   PRIMARY KEY (`id`),
   KEY `fk_cwe_cwesfp2cluster` (`cweSFP2Cluster`),
   CONSTRAINT `fk_cwe_cwesfp2cluster` FOREIGN KEY (`cweSFP2Cluster`) REFERENCES `sfp2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,6 +133,7 @@ CREATE TABLE `cwe` (
 
 LOCK TABLES `cwe` WRITE;
 /*!40000 ALTER TABLE `cwe` DISABLE KEYS */;
+INSERT INTO `cwe` VALUES (405,'https://cwe.mitre.org/data/definitions/330.html','Class','Simple',411,'CWE-330'),(406,'https://cwe.mitre.org/data/definitions/125.html','Base','Simple',412,'CWE-125'),(407,'https://cwe.mitre.org/data/definitions/426.html','Base','Simple',411,'CWE-426'),(408,'https://cwe.mitre.org/data/definitions/306.html','Variant','Simple',414,'CWE-306'),(409,'https://cwe.mitre.org/data/definitions/502.html','Variant','Simple',415,'CWE-502'),(410,'https://cwe.mitre.org/data/definitions/306.html','Variant','Simple',414,'CWE-306'),(411,'https://cwe.mitre.org/data/definitions/231.html','Variant','Simple',417,'CWE-231'),(412,'https://cwe.mitre.org/data/definitions/256.html','Variant','Simple',418,'CWE-256'),(413,'https://cwe.mitre.org/data/definitions/400.html','Class','Simple',419,'CWE-400'),(414,'https://cwe.mitre.org/data/definitions/20.html','Class','Simple',415,'CWE-20'),(415,'https://cwe.mitre.org/data/definitions/77.html','Class','Simple',421,'CWE-77'),(416,'https://cwe.mitre.org/data/definitions/200.html','Class','Simple',418,'CWE-200'),(417,'https://cwe.mitre.org/data/definitions/200.html','Class','Simple',418,'CWE-200'),(418,'https://cwe.mitre.org/data/definitions/77.html','Class','Simple',421,'CWE-77'),(419,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',421,'CWE-79'),(420,'https://cwe.mitre.org/data/definitions/89.html','Base','Simple',421,'CWE-89'),(421,'https://cwe.mitre.org/data/definitions/248.html','Base','Simple',427,'CWE-248'),(422,'https://cwe.mitre.org/data/definitions/749.html','Base','Simple',428,'CWE-749'),(423,'https://cwe.mitre.org/data/definitions/798.html','Base','Simple',411,'CWE-798'),(424,'https://cwe.mitre.org/data/definitions/522.html','Base','Simple',418,'CWE-522'),(425,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',421,'CWE-79'),(426,'https://cwe.mitre.org/data/definitions/798','Base','Simple',411,'CWE-798'),(427,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',421,'CWE-79'),(428,'https://cwe.mitre.org/data/definitions/89.html','Base','Simple',421,'CWE-89'),(429,'https://cwe.mitre.org/data/definitions/311.html','Base','Simple',418,'CWE-311'),(430,'https://cwe.mitre.org/data/definitions/94.html','Class','Simple',436,'CWE-94'),(431,'https://cwe.mitre.org/data/definitions/121.html','Variant','Simple',412,'CWE-121'),(432,'https://cwe.mitre.org/data/definitions/427.html','Base','Simple',436,'CWE-427'),(433,'https://cwe.mitre.org/data/definitions/427.html','Base','Simple',436,'CWE-427'),(434,'https://cwe.mitre.org/data/definitions/798.html','Base','Simple',411,'CWE-798'),(435,'https://cwe.mitre.org/data/definitions/284.html','Class','Simple',441,'CWE-284'),(436,'https://cwe.mitre.org/data/definitions/284.html','Class','Simple',441,'CWE-284'),(437,'https://cwe.mitre.org/data/definitions/78.html','Base','Simple',421,'CWE-78'),(438,'https://cwe.mitre.org/data/definitions/798.html','Base','Simple',411,'CWE-798'),(439,'https://cwe.mitre.org/data/definitions/434.html','Base','Simple',411,'CWE-434'),(440,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',421,'CWE-79'),(441,'https://cwe.mitre.org/data/definitions/352.html','Compound','Composite',411,'CWE-352'),(442,'https://cwe.mitre.org/data/definitions/200.html','Class','Simple',418,'CWE-200'),(443,'https://cwe.mitre.org/data/definitions/311.html','Base','Simple',418,'CWE-311'),(444,'https://cwe.mitre.org/data/definitions/79.html','Base','Simple',421,'CWE-79'),(445,'https://cwe.mitre.org/data/definitions/330.html','Class','Simple',411,'CWE-330'),(446,'https://cwe.mitre.org/data/definitions/330.html','Class','Simple',411,'CWE-330'),(447,'https://cwe.mitre.org/data/definitions/330.html','Class','Simple',411,'CWE-330'),(448,'https://cwe.mitre.org/data/definitions/330.html','Class','Simple',411,'CWE-330');
 /*!40000 ALTER TABLE `cwe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +149,7 @@ CREATE TABLE `devicetype` (
   `type` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_devicetype` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +177,7 @@ CREATE TABLE `icscert` (
   PRIMARY KEY (`id`),
   KEY `fk_icscert_patch` (`patch`),
   CONSTRAINT `fk_icscert_patch` FOREIGN KEY (`patch`) REFERENCES `patch` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +186,7 @@ CREATE TABLE `icscert` (
 
 LOCK TABLES `icscert` WRITE;
 /*!40000 ALTER TABLE `icscert` DISABLE KEYS */;
+INSERT INTO `icscert` VALUES (91,'2019-05-16',29,'ICSA-19-136-01'),(92,'2019-05-16',29,'ICSA-19-136-02'),(93,'2019-05-14',29,'ICSA-19-134-01'),(94,'2019-05-14',29,'ICSA-19-134-02'),(95,'2019-05-14',29,'ICSA-19-134-03'),(96,'2019-05-14',29,'ICSA-19-134-04'),(97,'2019-05-14',29,'ICSA-19-134-05'),(98,'2019-05-14',29,'ICSA-19-134-06'),(99,'2019-05-14',29,'ICSA-19-134-07'),(100,'2019-05-14',29,'ICSA-19-134-08'),(101,'2019-05-14',29,'ICSA-19-134-09'),(102,'2019-05-02',29,'ICSA-19-122-01'),(103,'2019-05-02',29,'ICSA-19-122-02'),(104,'2019-05-02',29,'ICSA-19-122-03'),(105,'2019-04-30',29,'ICSMA-19-120-01'),(106,'2019-05-16',29,'ICSA-19-136-01'),(107,'2019-05-16',29,'ICSA-19-136-01'),(108,'2019-05-16',29,'ICSA-19-136-01'),(109,'2019-05-16',29,'ICSA-19-136-01');
 /*!40000 ALTER TABLE `icscert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +206,7 @@ CREATE TABLE `icscert_cve` (
   KEY `FK_icscert_cve__id_cve` (`id_cve`),
   CONSTRAINT `FK_icscert_cve__id_cve` FOREIGN KEY (`id_cve`) REFERENCES `cve` (`id`),
   CONSTRAINT `FK_icscert_cve__id_icscert` FOREIGN KEY (`id_icscert`) REFERENCES `icscert` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=279 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,6 +215,7 @@ CREATE TABLE `icscert_cve` (
 
 LOCK TABLES `icscert_cve` WRITE;
 /*!40000 ALTER TABLE `icscert_cve` DISABLE KEYS */;
+INSERT INTO `icscert_cve` VALUES (235,91,393),(236,92,394),(237,93,395),(238,94,396),(239,95,397),(240,96,398),(241,96,399),(242,96,400),(243,97,401),(244,98,402),(245,99,403),(246,99,404),(247,99,405),(248,99,406),(249,99,407),(250,100,408),(251,100,409),(252,100,410),(253,101,411),(254,101,412),(255,101,413),(256,102,414),(257,102,415),(258,102,416),(259,102,417),(260,102,418),(261,102,419),(262,103,420),(263,103,421),(264,103,422),(265,103,423),(266,103,424),(267,104,425),(268,104,426),(269,104,427),(270,104,428),(271,104,429),(272,104,430),(273,104,431),(274,105,432);
 /*!40000 ALTER TABLE `icscert_cve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +235,7 @@ CREATE TABLE `icscert_product` (
   KEY `FK_icscert_product__id_product` (`id_product`),
   CONSTRAINT `FK_icscert_product__id_icscert` FOREIGN KEY (`id_icscert`) REFERENCES `icscert` (`id`),
   CONSTRAINT `FK_icscert_product__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,6 +244,7 @@ CREATE TABLE `icscert_product` (
 
 LOCK TABLES `icscert_product` WRITE;
 /*!40000 ALTER TABLE `icscert_product` DISABLE KEYS */;
+INSERT INTO `icscert_product` VALUES (56,91,107),(57,92,108),(58,93,109),(59,94,110),(60,95,111),(61,96,112),(62,97,113),(63,98,114),(64,99,115),(65,100,116),(66,101,117),(67,102,118),(68,103,119),(69,104,120),(70,105,121);
 /*!40000 ALTER TABLE `icscert_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +260,7 @@ CREATE TABLE `patch` (
   `patch` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_patch` (`patch`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,7 +292,7 @@ CREATE TABLE `product` (
   KEY `fk_product_vendor` (`vendor`),
   CONSTRAINT `fk_product_deviceType` FOREIGN KEY (`deviceType`) REFERENCES `devicetype` (`id`),
   CONSTRAINT `fk_product_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,6 +301,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (107,'Modicon M580, Modicon M340, Modicon Premium, and Modicon Quantum',0,1,'Device Comment',246),(108,'Alpha7 PC Loader',0,1,'Device Comment',247),(109,'Network Configurator for DeviceNet ',0,1,'Device Comment',248),(110,'SIMATIC WinCC and SIMATIC PCS 7',0,1,'Device Comment',249),(111,'LOGO! Soft Comfort',0,1,'Device Comment',249),(112,'LOGO!8 BM',0,1,'Device Comment',249),(113,'SINAMICS PERFECT HARMONY GH180 Drives NXG I and NXG II',0,1,'Device Comment',249),(114,'SINAMICS PERFECT HARMONY GH180 Fieldbus Network',0,1,'Device Comment',249),(115,'SCALANCE W1750D',0,1,'Device Comment',249),(116,'SIMATIC PCS 7, WinCC Runtime Professional, WinCC (TIA Portal)',0,1,'Device Comment',249),(117,'SIMATIC WinCC Runtime Advanced, WinCC Runtime Professional, WinCC (TIA Portal); HMI Panels',0,1,'Device Comment',249),(118,'SiteOmat',0,1,'Device Comment',257),(119,'Communicator',0,1,'Device Comment',258),(120,'AirLink ALEOS',0,1,'Device Comment',259),(121,'Tasy EMR',0,1,'Device Comment',260),(122,'Modicon M580, Modicon M340, Modicon Premium, and Modicon Quantum',0,1,'Device Comment',246),(123,'Modicon M580, Modicon M340, Modicon Premium, and Modicon Quantum',0,1,'Device Comment',246),(124,'Modicon M580, Modicon M340, Modicon Premium, and Modicon Quantum',0,1,'Device Comment',246),(125,'Modicon M580, Modicon M340, Modicon Premium, and Modicon Quantum',0,1,'Device Comment',246);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +321,7 @@ CREATE TABLE `product_countries` (
   KEY `FK_product_countries__id_countries` (`id_countries`),
   CONSTRAINT `FK_product_countries__id_countries` FOREIGN KEY (`id_countries`) REFERENCES `countries` (`id`),
   CONSTRAINT `FK_product_countries__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,6 +330,7 @@ CREATE TABLE `product_countries` (
 
 LOCK TABLES `product_countries` WRITE;
 /*!40000 ALTER TABLE `product_countries` DISABLE KEYS */;
+INSERT INTO `product_countries` VALUES (399,107,247),(400,108,247),(401,109,247),(402,110,247),(403,111,247),(404,112,247),(405,113,247),(406,114,247),(407,115,247),(408,116,247),(409,117,247),(410,118,247),(411,119,247),(412,120,247),(413,121,30),(414,121,142);
 /*!40000 ALTER TABLE `product_countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +350,7 @@ CREATE TABLE `product_sector` (
   KEY `fk_product_sector__id_sector` (`id_sector`),
   CONSTRAINT `fk_product_sector__id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_product_sector__id_sector` FOREIGN KEY (`id_sector`) REFERENCES `sector` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,8 +359,23 @@ CREATE TABLE `product_sector` (
 
 LOCK TABLES `product_sector` WRITE;
 /*!40000 ALTER TABLE `product_sector` DISABLE KEYS */;
+INSERT INTO `product_sector` VALUES (154,107,282),(155,108,283),(156,109,283),(157,110,285),(158,110,286),(159,110,287),(160,110,288),(161,111,289),(162,111,290),(163,112,289),(164,112,290),(165,113,285),(166,113,286),(167,113,287),(170,113,288),(169,113,290),(168,113,296),(171,114,285),(172,114,286),(173,114,287),(176,114,288),(175,114,290),(174,114,296),(177,115,285),(178,115,286),(179,115,287),(181,115,290),(180,115,296),(182,115,310),(184,116,283),(183,116,285),(185,116,286),(186,116,287),(187,116,288),(189,117,283),(188,117,285),(190,117,286),(191,117,287),(192,117,288),(194,118,286),(193,118,289),(195,118,290),(196,119,283),(197,119,286),(201,120,286),(204,120,288),(198,120,289),(203,120,290),(199,120,327),(200,120,328),(202,120,330),(205,121,296);
 /*!40000 ALTER TABLE `product_sector` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `products_by_sector`
+--
+
+DROP TABLE IF EXISTS `products_by_sector`;
+/*!50001 DROP VIEW IF EXISTS `products_by_sector`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `products_by_sector` (
+  `pname` tinyint NOT NULL,
+  `sname` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `sector`
@@ -366,7 +389,7 @@ CREATE TABLE `sector` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_sector` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,8 +398,23 @@ CREATE TABLE `sector` (
 
 LOCK TABLES `sector` WRITE;
 /*!40000 ALTER TABLE `sector` DISABLE KEYS */;
+INSERT INTO `sector` VALUES (310,'and Water and Wastewater Systems'),(285,'Chemical'),(289,'Commercial Facilities'),(327,'Communications'),(283,'Critical Manufacturing'),(328,'Emergency Services'),(286,'Energy'),(287,'Food and Agriculture'),(330,'Government Facilities'),(296,'Healthcare and Public Health'),(282,'Multiple Sectors'),(290,'Transportation Systems'),(288,'Water and Wastewater Systems');
 /*!40000 ALTER TABLE `sector` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `sector_instances`
+--
+
+DROP TABLE IF EXISTS `sector_instances`;
+/*!50001 DROP VIEW IF EXISTS `sector_instances`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `sector_instances` (
+  `sname` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `sfp1`
@@ -390,7 +428,7 @@ CREATE TABLE `sfp1` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_sfp1` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=461 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -399,6 +437,7 @@ CREATE TABLE `sfp1` (
 
 LOCK TABLES `sfp1` WRITE;
 /*!40000 ALTER TABLE `sfp1` DISABLE KEYS */;
+INSERT INTO `sfp1` VALUES (447,'Access Control'),(420,'Authentication'),(433,'Exception Management'),(424,'Information Leak'),(418,'Memory Access'),(417,'None'),(434,'Other'),(425,'Resource Management'),(421,'Tainted Input');
 /*!40000 ALTER TABLE `sfp1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,7 +456,7 @@ CREATE TABLE `sfp2` (
   UNIQUE KEY `UC_sfp2` (`name`),
   KEY `fk_sfp2_sfp1` (`sfp1`),
   CONSTRAINT `fk_sfp2_sfp1` FOREIGN KEY (`sfp1`) REFERENCES `sfp1` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=455 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,6 +465,7 @@ CREATE TABLE `sfp2` (
 
 LOCK TABLES `sfp2` WRITE;
 /*!40000 ALTER TABLE `sfp2` DISABLE KEYS */;
+INSERT INTO `sfp2` VALUES (411,'None',417),(412,'Faulty Buffer Access',418),(414,'Missing Authentication',420),(415,'Tainted Input to Variable',421),(417,'Incorrect Input Handling',421),(418,'Exposed Data',424),(419,'Unrestricted Consumption',425),(421,'Tainted Input to Command',421),(427,'Unchecked Status Condition',433),(428,'Architecture',434),(436,'Tainted Input to Environment',421),(441,'Access Management',447);
 /*!40000 ALTER TABLE `sfp2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +482,7 @@ CREATE TABLE `vendor` (
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_vendor` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,8 +491,47 @@ CREATE TABLE `vendor` (
 
 LOCK TABLES `vendor` WRITE;
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
+INSERT INTO `vendor` VALUES (246,'France','Schneider Electric'),(247,'Japan','Fuji Electric'),(248,'Japan','Omron'),(249,'Germany','Siemens'),(257,'Israel','Orpak (acquired by Gilbarco Veeder-Root)'),(258,'United States','General Electric'),(259,'Canada','Sierra Wireless'),(260,'Netherlands','Philips');
 /*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `products_by_sector`
+--
+
+/*!50001 DROP TABLE IF EXISTS `products_by_sector`*/;
+/*!50001 DROP VIEW IF EXISTS `products_by_sector`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `products_by_sector` AS select `product`.`name` AS `pname`,`sector`.`name` AS `sname` from ((`product` join `sector`) join `product_sector`) where `product`.`id` = `product_sector`.`id_product` and `product_sector`.`id_sector` = `sector`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `sector_instances`
+--
+
+/*!50001 DROP TABLE IF EXISTS `sector_instances`*/;
+/*!50001 DROP VIEW IF EXISTS `sector_instances`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `sector_instances` AS select `products_by_sector`.`sname` AS `sname`,count(0) AS `quantity` from `products_by_sector` group by `products_by_sector`.`sname` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -463,4 +542,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-06 16:55:44
+-- Dump completed on 2019-05-20  0:18:47
