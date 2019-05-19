@@ -137,7 +137,7 @@ class Advisory:
             c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
             countries_id = c.fetchone()
             c.execute(""" insert ignore into product_countries values (default , %s, %s)""", (product_id[0],
-                                                                                              countries_id))
+                                                                                              countries_id[0]))
 
         c.execute(""" select id from product where name=%s """, (self.product,))
         product_id = c.fetchone()
