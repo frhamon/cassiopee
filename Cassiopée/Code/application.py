@@ -28,7 +28,7 @@ while(True):
 print("Voici la liste des graphes disponibles: ")
 print("1. Premier graphe")
 print()
-print("Pour afficher un graphe, tapez 'graph i' avec i le numero du graphe")
+print("Pour afficher un graphe, tapez 'i' avec i le numero du graphe")
 print("Pour réafficher la liste des graphes, tapez 'list' ")
 print("Pour quitter, tapez 'quit' ")
 print();print()
@@ -36,7 +36,7 @@ print();print()
 while(True):
     print()
     cmd = input("Tapez votre commande: ")
-    if(cmd == 'graph 1'):
+    if(cmd == 1):
         make_graph.graph(mdp)
     elif(cmd == 'quit'):
         break

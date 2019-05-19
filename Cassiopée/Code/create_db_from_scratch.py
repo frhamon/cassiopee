@@ -1,8 +1,10 @@
+from getpass import getpass
+
 import MySQLdb as mdb
 import fill_db
 
 
-mdp = input("Veuillez rentrer votre mot de passe mysql: ")
+mdp = getpass(prompt='Veuillez rentrer votre mot de passe mysql: ')
 while(True):
 
     try :
@@ -12,14 +14,14 @@ while(True):
         if (e.args[0] == 1045):
             print("Mot de passe incorrect")
             print()
-            mdp = input("Veuillez rentrer votre mot de passe mysql: ")
+            mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
         elif (e.args[0] == 1049):
             print()
             print("Création de la base de donnée et de son schéma...")
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', charset='utf8')
             db.cursor().execute('CREATE DATABASE cassiopee')
 
-            db = mdb.Connection(host='localhost', passwd='mathaouiz09', user='root', db='cassiopee', charset='utf8')
+            db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
             cursor = db.cursor()
 
             fd = open("../Modélisation/cassiopee.sql", 'r')
@@ -40,6 +42,7 @@ while(True):
             print()
         else:
             raise(e)
+
 
 
 

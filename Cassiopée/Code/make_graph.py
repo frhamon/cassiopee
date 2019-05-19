@@ -7,6 +7,20 @@ import tkinter
 def graph(mdp):
     db = mdb.Connection(host='localhost', db='cassiopee', passwd=mdp, user='root', charset='utf8')
 
+
+    query_sector = "select * from sector_instances"
+
+    df_sector = psql.read_sql(query_sector, con=db)
+
+    df_sector.plot(x='sname',
+            y='quantity',
+            kind='bar',
+            title='Number of products per sector'
+            )
+    plt.show()
+
+    db.close()
+    ###
     query = "select date FROM cve"
 
     # Envoie resultat query dans un dataframe pandas
