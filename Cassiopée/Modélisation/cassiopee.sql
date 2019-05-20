@@ -50,12 +50,13 @@ DROP TABLE IF EXISTS `cve`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cve` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
+  `date_creation` date DEFAULT NULL,
   `advisoryDescription` text DEFAULT NULL,
   `cvss` smallint(5) unsigned NOT NULL,
   `cwe` smallint(5) unsigned NOT NULL,
   `name` char(255) DEFAULT NULL,
   `link` text DEFAULT NULL,
+  `date_publication` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cve_cvss` (`cvss`),
   KEY `fk_cve_cwe` (`cwe`),
@@ -529,4 +530,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-20  0:47:58
+-- Dump completed on 2019-05-20 18:30:02
