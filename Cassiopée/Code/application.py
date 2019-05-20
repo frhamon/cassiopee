@@ -37,16 +37,9 @@ print();print()
 while(True):
     print()
     cmd = input("Tapez votre commande: ")
-<<<<<<< HEAD
-    if(cmd == 1):
-        make_graph.graph(mdp)
-    elif(cmd == 'quit'):
-        break
-=======
     if(cmd == 'quit'):
         break
     elif(cmd == 'list'):
         make_graph.list()
     else:
         make_graph.graph(cmd,mdp)
->>>>>>> 816993e8d864d9f0e481e9bd7923907313101a4d
