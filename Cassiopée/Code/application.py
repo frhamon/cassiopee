@@ -3,6 +3,7 @@ from getpass import getpass
 import MySQLdb as mdb
 import fill_db
 import make_graph
+from getpass import getpass
 
 
 mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
@@ -14,12 +15,11 @@ while(True):
         if (e.args[0] == 1045):
             print("Mot de passe incorrect")
             print()
-            mdp = input("Veuillez rentrer votre mot de passe mysql: ")
+            mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
         elif(e.args[0] == 1062):
             print()
             print()
             print("La base de données est à jour")
-            print()
             break
         else:
             raise(e)
@@ -27,8 +27,7 @@ while(True):
 
 
 
-print("Voici la liste des graphes disponibles: ")
-print("1. Premier graphe")
+make_graph.list()
 print()
 print("Pour afficher un graphe, tapez 'i' avec i le numero du graphe")
 print("Pour réafficher la liste des graphes, tapez 'list' ")
@@ -38,7 +37,16 @@ print();print()
 while(True):
     print()
     cmd = input("Tapez votre commande: ")
+<<<<<<< HEAD
     if(cmd == 1):
         make_graph.graph(mdp)
     elif(cmd == 'quit'):
         break
+=======
+    if(cmd == 'quit'):
+        break
+    elif(cmd == 'list'):
+        make_graph.list()
+    else:
+        make_graph.graph(cmd,mdp)
+>>>>>>> 816993e8d864d9f0e481e9bd7923907313101a4d
