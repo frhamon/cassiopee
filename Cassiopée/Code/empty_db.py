@@ -1,7 +1,10 @@
+from getpass import getpass
+
 import MySQLdb as mdb
 
+passwd = getpass(prompt='Entrez votre mot de passe MySQL : ')
 
-db = mdb.Connection(host='localhost', db='cassiopee', passwd='mathaouiz09', user='root')
+db = mdb.Connection(host='localhost', db='cassiopee', passwd='passwd', user='root')
 
 c = db.cursor()
 

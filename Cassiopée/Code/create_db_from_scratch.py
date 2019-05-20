@@ -19,7 +19,7 @@ while(True):
             print()
             print("Création de la base de donnée et de son schéma...")
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', charset='utf8')
-            db.cursor().execute('CREATE DATABASE cassiopee')
+            db.cursor().execute('CREATE DATABASE IF NOT EXISTS cassiopee')
 
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
             cursor = db.cursor()

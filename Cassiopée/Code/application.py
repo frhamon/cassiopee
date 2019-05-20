@@ -1,9 +1,11 @@
+from getpass import getpass
+
 import MySQLdb as mdb
 import fill_db
 import make_graph
 
 
-mdp = input("Veuillez rentrer votre mot de passe mysql: ")
+mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
 while(True):
 
     try :
