@@ -32,7 +32,7 @@ class Advisory:
         c.execute(""" select id from patch where patch='Default Patch Name'  """)
         patch_id = c.fetchone()
 
-        c.execute(""" insert into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
+        c.execute(""" insert ignore into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
 
         db.commit()
 
@@ -203,8 +203,11 @@ class Advisory:
         # Liste des liens vers NVD
         self.cve_link = []
 
-        # Liste des dates de publication des CVE sur NVD(1er Janvier si date précise non disponible)
+        # Liste des dates de créations des CVE (1er janvier de l'année répertoriée)
         self.cve_date = []
+
+        # Liste des dates de publication des CVE sur NVD(1er Janvier si date précise non disponible)
+        self.cve_date_publi = []
 
         # Liste des descriptions des vulnérabilités
         self.cve_text = []
@@ -288,9 +291,9 @@ class Advisory:
         return res
 
 
-    def parser_cve_date(self,cve):
+    def parser_cve_date_publi(self,cve):
         """
-        Récupère la date précise de création d'un CVE si celle-ci est disponible (1er Janvier sinon)
+        Récupère la date de publication d'un CVE si celle-ci est disponible
 
         :param cve: CVE dont on veut la date
 
@@ -306,6 +309,7 @@ class Advisory:
             res = res.split("/")
             res = res[2] + '-' + res[0] + '-' + res[1]
             return res
+        return "None"
         res = cve.getText()
         res = re.sub("CVE-","",res)
         res = re.sub("-[0-9]*","",res)
@@ -323,10 +327,14 @@ class Advisory:
         for cve in cves:
             id = cve.getText()
             self.cve+=[id]
+            cve_date = re.sub("CVE-","",id)
+            cve_date = re.sub("-[0-9]*","",id)
+            cve_date += "-01-01"
+            self.cve_date += [cve_date]
             cve_link = cve.get('href')
             self.cve_link += [cve_link]
-            cve_date = self.parser_cve_date(cve)
-            self.cve_date += [cve_date]
+            cve_date_publi = self.parser_cve_date_publi(cve)
+            self.cve_date_publi += [cve_date_publi]
             text = cve.parent.previous_sibling.getText()
             self.cve_text += [text]
 
