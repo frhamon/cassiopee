@@ -91,12 +91,13 @@ class Advisory:
                         self.cvss[i][6][-1],
                         self.cvss[i][7][-1])))
             cvss_id = c.fetchone()
-            c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
-                                                                                         self.cve_text[i],
-                                                                                         cvss_id[0],
-                                                                                         cwe_id,
-                                                                                         self.cve[i],
-                                                                                         self.cve_link[i]))
+            c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
+                                                                                             self.cve_text[i],
+                                                                                             cvss_id[0],
+                                                                                             cwe_id,
+                                                                                             self.cve[i],
+                                                                                             self.cve_link[i],
+                                                                                             self.cve_date_publi))
 
             db.commit()
 
