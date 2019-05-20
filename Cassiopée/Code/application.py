@@ -1,5 +1,3 @@
-from getpass import getpass
-
 import MySQLdb as mdb
 import fill_db
 import make_graph
@@ -34,19 +32,12 @@ print("Pour réafficher la liste des graphes, tapez 'list' ")
 print("Pour quitter, tapez 'quit' ")
 print();print()
 
-while(True):
+while True:
     print()
     cmd = input("Tapez votre commande: ")
-<<<<<<< HEAD
-    if(cmd == 1):
-        make_graph.graph(mdp)
-    elif(cmd == 'quit'):
+    if cmd == 'quit':
         break
-=======
-    if(cmd == 'quit'):
-        break
-    elif(cmd == 'list'):
+    elif cmd == 'list':
         make_graph.list()
     else:
         make_graph.graph(cmd,mdp)
->>>>>>> 816993e8d864d9f0e481e9bd7923907313101a4d

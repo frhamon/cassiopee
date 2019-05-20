@@ -25,7 +25,7 @@ urls = soup.findAll('a',href=re.compile('/advisories/I'))
 
 def fill(mdp):
     # Récupère et envoie en bdd les données des 10 premiers advisories
-    for i in range(8):
+    for i in range(10):
         url = urls[i].get('href')
         url = "https://ics-cert.us-cert.gov"+url
         adv = Advisory(url,mdp)
