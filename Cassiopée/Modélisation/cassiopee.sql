@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `countries`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `countries` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(2) NOT NULL DEFAULT '',
+  `code` varchar(2) DEFAULT '',
   `name` char(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_countries` (`name`)
