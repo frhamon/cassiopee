@@ -19,7 +19,7 @@ opener = AppURLopener()
 
 
 def fill(mdp):
-    for i in range(4):
+    for i in range(2,4):
         # Récupération du code html de l'url de la première page des advisories de ICS-CERT
         url_ics = "https://ics-cert.us-cert.gov/advisories?page=" + str(i)
         page = opener.open(url_ics)

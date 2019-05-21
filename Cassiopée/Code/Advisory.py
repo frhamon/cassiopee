@@ -145,13 +145,14 @@ class Advisory:
         #Parcours de tous les pays où le produit a été déployé, avec remplissage si le pays n'existe pas déjà en base
         for i in range(len(self.countries)):
             c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
-            countries_id = c.fetchone()
+            countries_id_tuple = c.fetchone()
+            countries_id = countries_id_tuple[0]
             if countries_id is None:
                 c.execute(""" insert into countries values (default , null , %s)""", (self.countries[i],))
-                countries_id = c.lastrowid()
+                countries_id = c.lastrowid
                 db.commit()
             c.execute(""" insert ignore into product_countries values (default , %s, %s)""", (product_id[0],
-                                                                                              countries_id[0]))
+                                                                                              countries_id))
 
         #remplissage de la table de jointure entre ICS et Produit
         c.execute(""" insert into icscert_product values (default , %s, %s)""", (icscert_id, product_id))
@@ -334,9 +335,13 @@ class Advisory:
         for cve in cves:
             id = cve.getText()
             self.cve+=[id]
+            print(id)
             cve_date = re.sub("CVE-","",id)
-            cve_date = re.sub("-[0-9]*","",cve_date)
+            print(cve_date)
+            cve_date = re.sub("-[0-9\s]*","",cve_date)
+            print(cve_date)
             cve_date += "-01-01"
+            print(cve_date)
             self.cve_date += [cve_date]
             cve_link = cve.get('href')
             self.cve_link += [cve_link]
