@@ -39,8 +39,6 @@ class Advisory:
         c.execute(""" select id from icscert where name=%s """, (self.ics,))
         icscert_id = c.fetchone()
 
-        self.
-
         for i in range(len(self.cve)):
             c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
 
