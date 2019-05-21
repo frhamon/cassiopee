@@ -20,25 +20,28 @@ opener = AppURLopener()
 class Advisory:
     def send_to_db(self):
 
-        # !! Remplir passwd avec le mot de passe mysql de l'utilisateur !!
-
         db = mdb.Connection(host='localhost', db='cassiopee', passwd=self.mdp, user='root', charset='utf8')
         c = db.cursor()
 
+        #Insertion d'une valeur par défaut pour le patch
         c.execute(""" insert ignore into patch values(DEFAULT , 'Default Patch Name') """)
 
         db.commit()
 
+        #Récupération de l'id du patch de l'Advisory courant
         c.execute(""" select id from patch where patch='Default Patch Name'  """)
         patch_id = c.fetchone()
 
+        #Remplissage de la table ICS-CERT
         c.execute(""" insert ignore into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
 
         db.commit()
 
+        #Récupération de l'id de l'ics courant
         c.execute(""" select id from icscert where name=%s """, (self.ics,))
         icscert_id = c.fetchone()
 
+        #Parcourir tous les CVE de l'advisory courant pour remplir les SFP1/2, CWE et CVSS
         for i in range(len(self.cve)):
             c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
 
@@ -106,8 +109,10 @@ class Advisory:
 
             c.execute(""" insert ignore into icscert_cve values (default , %s, %s)""", (icscert_id[0], cve_id[0]))
 
+        #Remplissage des informations du vendeur
         c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
 
+        #Remplissage par défaut du type de device
         c.execute(""" insert ignore into devicetype values (default , 'type')""")
 
         db.commit
@@ -118,15 +123,18 @@ class Advisory:
         c.execute(""" select id from vendor where name = %s """, (self.vendor,))
         vendor_id = c.fetchone()
 
+        #Remplissage des informations du produit concerné par l'advisory
         c.execute(""" insert into product values (default , %s, 0, %s, 'Device Comment', %s)""", (self.product,
                                                                                                   devicetype_id[0],
                                                                                                   vendor_id[0]))
 
         db.commit()
 
+        #Récupération de l'id du produit courant
         c.execute(""" select id from product where name = %s """, (self.product,))
         product_id = c.fetchone()
 
+        #Parcours de tous les secteurs de l'advisory courant
         for i in range(len(self.sector)):
             c.execute(""" insert ignore into sector values (default , %s) """, (self.sector[i],))
             db.commit()
@@ -134,15 +142,18 @@ class Advisory:
             sector_id = c.fetchone()
             c.execute(""" insert ignore into product_sector values (default , %s, %s)""", (product_id[0], sector_id[0]))
 
+        #Parcours de tous les pays où le produit a été déployé, avec remplissage si le pays n'existe pas déjà en base
         for i in range(len(self.countries)):
             c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
             countries_id = c.fetchone()
+            if countries_id is None:
+                c.execute(""" insert into countries values (default , null , %s)""", (self.countries[i],))
+                countries_id = c.lastrowid()
+                db.commit()
             c.execute(""" insert ignore into product_countries values (default , %s, %s)""", (product_id[0],
                                                                                               countries_id[0]))
 
-        c.execute(""" select id from product where name=%s """, (self.product,))
-        product_id = c.fetchone()
-
+        #remplissage de la table de jointure entre ICS et Produit
         c.execute(""" insert into icscert_product values (default , %s, %s)""", (icscert_id, product_id))
 
         db.commit()
