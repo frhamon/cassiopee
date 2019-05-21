@@ -16,18 +16,18 @@ def graph(i, mdp):
 
 
     if(i == '1'):
-        query = "select date FROM cve"
+        query = "select date_creation FROM cve"
 
         # Envoie resultat query dans un dataframe pandas
         df = psql.read_sql(query, con=db)
 
         # Convertit les string en dates numériques
-        df['date'] = df['date'].astype('datetime64[ns]')
+        df['date_creation'] = df['date_creation'].astype('datetime64[ns]')
 
         # Crée une colonne qui compte le nombre de CVE par date
-        df['count'] = df.date.map(df.groupby('date').size())
+        df['count'] = df.date_creation.map(df.groupby('date_creation').size())
 
-        df.plot(x='date')
+        df.plot(x='date_creation')
         plt.show()
 
     if(i == '2'):
@@ -40,4 +40,5 @@ def graph(i, mdp):
                        kind='bar',
                        title='Number of products per sector'
                        )
+
         plt.show()
