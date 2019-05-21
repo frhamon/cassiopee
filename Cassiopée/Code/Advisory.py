@@ -97,7 +97,7 @@ class Advisory:
                                                                                              cwe_id,
                                                                                              self.cve[i],
                                                                                              self.cve_link[i],
-                                                                                             self.cve_date_publi))
+                                                                                             self.cve_date_publi[i]))
 
             db.commit()
 
@@ -288,7 +288,7 @@ class Advisory:
             res = res.getText()
             res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
         else:
-            res = "None"
+            res = "Null"
         return res
 
 
@@ -310,12 +310,7 @@ class Advisory:
             res = res.split("/")
             res = res[2] + '-' + res[0] + '-' + res[1]
             return res
-        return "None"
-        res = cve.getText()
-        res = re.sub("CVE-","",res)
-        res = re.sub("-[0-9]*","",res)
-        res = res + "-01-01"
-        return res
+        return None
 
 
     def cve_parser(self):
@@ -329,7 +324,7 @@ class Advisory:
             id = cve.getText()
             self.cve+=[id]
             cve_date = re.sub("CVE-","",id)
-            cve_date = re.sub("-[0-9]*","",id)
+            cve_date = re.sub("-[0-9]*","",cve_date)
             cve_date += "-01-01"
             self.cve_date += [cve_date]
             cve_link = cve.get('href')

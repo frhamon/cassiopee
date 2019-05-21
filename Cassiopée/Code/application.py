@@ -35,11 +35,7 @@ print();print()
 while True:
     print()
     cmd = input("Tapez votre commande: ")
-<<<<<<< HEAD
-    if cmd == 'quit':
-=======
     if(cmd == 'quit'):
->>>>>>> 293624fb8ecd2197273a34ad78c40f7661c44516
         break
     elif cmd == 'list':
         make_graph.list()

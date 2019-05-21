@@ -8,7 +8,24 @@ mdp = getpass(prompt='Veuillez rentrer votre mot de passe mysql: ')
 while(True):
 
     try :
-        fill_db.fill(mdp)
+        db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
+        cursor = db.cursor()
+
+        fd = open("../Modélisation/cassiopee.sql", 'r')
+        sqlFile = fd.read()
+        fd.close()
+
+        # all SQL commands (split on ';')
+        sqlCommands = sqlFile.split(';')
+
+        # Execute every command from the input file
+        for command in sqlCommands:
+            # This will skip and report errors
+            # For example, if the tables do not yet exist, this will skip over
+            # the DROP TABLE commands
+
+            if command.rstrip() != '':
+                cursor.execute(command)
         break
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:
         if (e.args[0] == 1045):
@@ -17,28 +34,9 @@ while(True):
             mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
         elif (e.args[0] == 1049):
             print()
-            print("Création de la base de donnée et de son schéma...")
+            print("Création de la base de donnée...")
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', charset='utf8')
-            db.cursor().execute('CREATE DATABASE IF NOT EXISTS cassiopee')
-
-            db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
-            cursor = db.cursor()
-
-            fd = open("../Modélisation/cassiopee.sql", 'r')
-            sqlFile = fd.read()
-            fd.close()
-
-            # all SQL commands (split on ';')
-            sqlCommands = sqlFile.split(';')
-
-            # Execute every command from the input file
-            for command in sqlCommands:
-                # This will skip and report errors
-                # For example, if the tables do not yet exist, this will skip over
-                # the DROP TABLE commands
-                if command.rstrip() != '':
-                    cursor.execute(command)
-            print("Base de données créée, prête à être remplie")
+            db.cursor().execute('CREATE DATABASE cassiopee')
             print()
         else:
             raise(e)
@@ -47,5 +45,5 @@ while(True):
 
 
 print();print()
-print("Base données remplie, prête pour le traitement des données")
+print("Base données créée, prête pour le traitement des données")
 print("Veuillez exécuter application.py pour lancer l'applciation")

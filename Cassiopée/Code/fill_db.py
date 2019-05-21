@@ -16,17 +16,20 @@ class AppURLopener(urllib.request.FancyURLopener):
 opener = AppURLopener()
 
 
-# Récupération du code html de l'url de la première page des advisories de ICS-CERT
-page = opener.open("https://ics-cert.us-cert.gov/advisories")
-soup = BeautifulSoup(page,'html.parser')
 
-# Récupère les urls de tous les advisories de la première page
-urls = soup.findAll('a',href=re.compile('/advisories/I'))
 
 def fill(mdp):
-    # Récupère et envoie en bdd les données des 10 premiers advisories
-    for i in range(10):
-        url = urls[i].get('href')
-        url = "https://ics-cert.us-cert.gov"+url
-        adv = Advisory(url,mdp)
-        adv.send_to_db()
+    for i in range(4):
+        # Récupération du code html de l'url de la première page des advisories de ICS-CERT
+        url_ics = "https://ics-cert.us-cert.gov/advisories?page=" + str(i)
+        page = opener.open(url_ics)
+        soup = BeautifulSoup(page, 'html.parser')
+
+        # Récupère les urls de tous les advisories de la première page
+        urls = soup.findAll('a', href=re.compile('/advisories/I'))
+        # Récupère et envoie en bdd les données des 10 premiers advisories
+        for i in range(len(urls)):
+            url = urls[i].get('href')
+            url = "https://ics-cert.us-cert.gov"+url
+            adv = Advisory(url,mdp)
+            adv.send_to_db()
