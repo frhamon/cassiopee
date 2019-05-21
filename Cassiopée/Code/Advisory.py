@@ -39,6 +39,8 @@ class Advisory:
         c.execute(""" select id from icscert where name=%s """, (self.ics,))
         icscert_id = c.fetchone()
 
+        self.
+
         for i in range(len(self.cve)):
             c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
 
@@ -137,6 +139,10 @@ class Advisory:
         for i in range(len(self.countries)):
             c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
             countries_id = c.fetchone()
+            if countries_id is None:
+                c.execute(""" insert into countries values (default , null , %s)""", (self.countries[i],))
+                countries_id = c.lastrowid()
+                db.commit()
             c.execute(""" insert ignore into product_countries values (default , %s, %s)""", (product_id[0],
                                                                                               countries_id[0]))
 
