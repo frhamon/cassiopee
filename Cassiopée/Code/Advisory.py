@@ -146,7 +146,12 @@ class Advisory:
         for i in range(len(self.countries)):
             c.execute(""" select id from countries where name like %s """, ('%' + self.countries[i] + '%',))
             countries_id_tuple = c.fetchone()
+<<<<<<< HEAD
             if countries_id_tuple is None:
+=======
+            countries_id = countries_id_tuple[0]
+            if countries_id is None:
+>>>>>>> 8f52251f69fbafbf48877acbedfbd5b1d5a5b0a5
                 c.execute(""" insert into countries values (default , null , %s)""", (self.countries[i],))
                 countries_id = c.lastrowid
                 db.commit()
@@ -336,9 +341,13 @@ class Advisory:
         for cve in cves:
             id = cve.getText()
             self.cve+=[id]
+            print(id)
             cve_date = re.sub("CVE-","",id)
-            cve_date = re.sub("-[0-9]*","",cve_date)
+            print(cve_date)
+            cve_date = re.sub("-[0-9\s]*","",cve_date)
+            print(cve_date)
             cve_date += "-01-01"
+            print(cve_date)
             self.cve_date += [cve_date]
             cve_link = cve.get('href')
             self.cve_link += [cve_link]
