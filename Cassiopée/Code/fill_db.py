@@ -32,4 +32,4 @@ def fill(mdp):
             url = urls[i].get('href')
             url = "https://ics-cert.us-cert.gov"+url
             adv = Advisory(url,mdp)
-            adv.send_to_db()
+            adv.send_to_db
