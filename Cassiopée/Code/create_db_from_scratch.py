@@ -11,7 +11,7 @@ while(True):
         db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
         cursor = db.cursor()
 
-        fd = open("./Modélisation/cassiopee.sql", 'r')
+        fd = open("../Modélisation/cassiopee.sql", 'r')
         sqlFile = fd.read()
         fd.close()
 
