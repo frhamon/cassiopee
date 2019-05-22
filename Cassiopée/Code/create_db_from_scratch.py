@@ -36,7 +36,7 @@ while(True):
             print()
             print("Création de la base de donnée...")
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', charset='utf8')
-            db.cursor().execute('CREATE IF NOT EXISTS DATABASE cassiopee')
+            db.cursor().execute('CREATE DATABASE cassiopee')
             print()
         else:
             raise(e)

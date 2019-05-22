@@ -9,9 +9,9 @@ mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
 while(True):
 
     try :
-        for i in range(2,10):
+        for i in range(5,10):
             fill_db.fill(mdp,i)
-            p = os.system('mysqldump -u root -p"clochette" cassiopee -r ../Modélisation/cassiopee.sql')
+            p = os.system('mysqldump -u root -p"mathaouiz09" cassiopee -r ../Modélisation/cassiopee.sql')
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:
         if (e.args[0] == 1045):
             print("Mot de passe incorrect")

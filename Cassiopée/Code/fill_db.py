@@ -29,7 +29,7 @@ def fill(mdp,i):
     # Récupère les urls de tous les advisories de la première page
     urls = soup.findAll('a', href=re.compile('/advisories/I'))
     # Récupère et envoie en bdd les données des 10 premiers advisories
-    for i in range(len(urls)):
+    for i in range(19,len(urls)):
         url = urls[i].get('href')
         url = "https://ics-cert.us-cert.gov"+url
         adv = Advisory(url,mdp)

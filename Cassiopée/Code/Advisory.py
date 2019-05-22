@@ -96,8 +96,7 @@ class Advisory:
                             self.cvss[i][6][-1],
                             self.cvss[i][7][-1])))
                 cvss_id = c.fetchone()
-                c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
-                                                                                                 self.cve_text[i],
+                c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
                                                                                                  cvss_id[0],
                                                                                                  cwe_id,
                                                                                                  self.cve[i],
@@ -230,7 +229,7 @@ class Advisory:
         self.cve_date_publi = []
 
         # Liste des descriptions des vulnérabilités
-        self.cve_text = []
+        #self.cve_text = []
 
         # Remplie les 4 listes précédentes
         self.cve_parser()
@@ -349,8 +348,8 @@ class Advisory:
             self.cve_link += [cve_link]
             cve_date_publi = self.parser_cve_date_publi(cve)
             self.cve_date_publi += [cve_date_publi]
-            text = cve.parent.previous_sibling.getText()
-            self.cve_text += [text]
+            #text = cve.parent.previous_sibling.getText()
+            #self.cve_text += [text]
 
 
     def cvss_parser(self):
