@@ -18,6 +18,7 @@ opener = AppURLopener()
 
 
 
+
 def fill(mdp,i):
     #for i in range(4):
     # Récupération du code html de l'url de la première page des advisories de ICS-CERT

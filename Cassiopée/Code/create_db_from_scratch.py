@@ -11,7 +11,7 @@ while(True):
         db = mdb.Connection(host='localhost', passwd=mdp, user='root', db='cassiopee', charset='utf8')
         cursor = db.cursor()
 
-        fd = open("../Modélisation/cassiopee.sql", 'r')
+        fd = open("./Modélisation/cassiopee.sql", 'r')
         sqlFile = fd.read()
         fd.close()
 
@@ -36,7 +36,7 @@ while(True):
             print()
             print("Création de la base de donnée...")
             db = mdb.Connection(host='localhost', passwd=mdp, user='root', charset='utf8')
-            db.cursor().execute('CREATE DATABASE cassiopee')
+            db.cursor().execute('CREATE IF NOT EXISTS DATABASE cassiopee')
             print()
         else:
             raise(e)
@@ -46,4 +46,4 @@ while(True):
 
 print();print()
 print("Base données créée, prête pour le traitement des données")
-print("Veuillez exécuter application.py pour lancer l'applciation")
+print("Veuillez exécuter application.py pour lancer l'application")

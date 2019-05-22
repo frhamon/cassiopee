@@ -42,72 +42,78 @@ class Advisory:
         icscert_id = c.fetchone()
 
         #Parcourir tous les CVE de l'advisory courant pour remplir les SFP1/2, CWE et CVSS
-        for i in range(len(self.cve)):
-            c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
+        if len(self.cve) == len(self.sfp1):
+            for i in range(len(self.cve)):
 
-            db.commit()
+                c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
 
-            c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
-            sfp1_id = c.fetchone()
+                db.commit()
 
-            c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
+                c.execute(""" select id from sfp1 where name=%s """, (self.sfp1[i],))
+                sfp1_id = c.fetchone()
 
-            db.commit()
+                c.execute(""" insert ignore into sfp2 values (default , %s, %s)""", (self.sfp2[i], sfp1_id[0]))
 
-            c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
-            sfp2_id = c.fetchone()
+                db.commit()
 
-            c.execute(""" insert into cwe values (default , %s, %s, %s, %s, %s)""", (self.cwe_link[i],
-                                                                                     self.abstraction[i],
-                                                                                     self.structure[i],
-                                                                                     sfp2_id[0],
-                                                                                     self.cwe[i]))
+                c.execute(""" select id from sfp2 where name=%s """, (self.sfp2[i],))
+                sfp2_id = c.fetchone()
 
-            cwe_id = c.lastrowid
-            c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
-                                                                                                     self.cvss[i][1][-1],
-                                                                                                     self.cvss[i][2][-1],
-                                                                                                     self.cvss[i][3][-1],
-                                                                                                     self.cvss[i][4][-1],
-                                                                                                     self.cvss[i][5][-1],
-                                                                                                     self.cvss[i][6][-1],
-                                                                                                     self.cvss[i][7][-1],
-                                                                                                     self.score[i]))
+                c.execute(""" insert into cwe values (default , %s, %s, %s, %s, %s)""", (self.cwe_link[i],
+                                                                                         self.abstraction[i],
+                                                                                         self.structure[i],
+                                                                                         sfp2_id[0],
+                                                                                         self.cwe[i]))
 
-            db.commit()
+                cwe_id = c.lastrowid
+                c.execute(""" insert ignore into cvss values (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (self.cvss[i][0][-1],
+                                                                                                         self.cvss[i][1][-1],
+                                                                                                         self.cvss[i][2][-1],
+                                                                                                         self.cvss[i][3][-1],
+                                                                                                         self.cvss[i][4][-1],
+                                                                                                         self.cvss[i][5][-1],
+                                                                                                         self.cvss[i][6][-1],
+                                                                                                         self.cvss[i][7][-1],
+                                                                                                         self.score[i]))
 
-            c.execute(""" select id from cvss where 
-            av = %s and 
-            ac = %s and 
-            pr = %s and 
-            ui = %s and 
-            s = %s and 
-            c = %s and 
-            i = %s and 
-            a = %s """,
-                      ((self.cvss[i][0][-1],
-                        self.cvss[i][1][-1],
-                        self.cvss[i][2][-1],
-                        self.cvss[i][3][-1],
-                        self.cvss[i][4][-1],
-                        self.cvss[i][5][-1],
-                        self.cvss[i][6][-1],
-                        self.cvss[i][7][-1])))
-            cvss_id = c.fetchone()
-            c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
-                                                                                             self.cve_text[i],
-                                                                                             cvss_id[0],
-                                                                                             cwe_id,
-                                                                                             self.cve[i],
-                                                                                             self.cve_link[i],
-                                                                                             self.cve_date_publi[i]))
+                db.commit()
 
-            db.commit()
+                c.execute(""" select id from cvss where 
+                av = %s and 
+                ac = %s and 
+                pr = %s and 
+                ui = %s and 
+                s = %s and 
+                c = %s and 
+                i = %s and 
+                a = %s """,
+                          ((self.cvss[i][0][-1],
+                            self.cvss[i][1][-1],
+                            self.cvss[i][2][-1],
+                            self.cvss[i][3][-1],
+                            self.cvss[i][4][-1],
+                            self.cvss[i][5][-1],
+                            self.cvss[i][6][-1],
+                            self.cvss[i][7][-1])))
+                cvss_id = c.fetchone()
+                c.execute(""" insert into cve values (default , %s, %s, %s, %s, %s, %s, %s)""", (self.cve_date[i],
+                                                                                                 self.cve_text[i],
+                                                                                                 cvss_id[0],
+                                                                                                 cwe_id,
+                                                                                                 self.cve[i],
+                                                                                                 self.cve_link[i],
+                                                                                                 self.cve_date_publi[i]))
 
-            c.execute(""" select id from cve where name=%s """, (self.cve[i],))
-            cve_id = c.fetchone()
+                db.commit()
 
-            c.execute(""" insert ignore into icscert_cve values (default , %s, %s)""", (icscert_id[0], cve_id[0]))
+                c.execute(""" select id from cve where name=%s """, (self.cve[i],))
+                cve_id = c.fetchone()
+
+                c.execute(""" insert ignore into icscert_cve values (default , %s, %s)""", (icscert_id[0], cve_id[0]))
+
+        else:
+            print('L\'entrée %s est un cas particulier qui ne peut pas encore être traité.', (self.ics,))
+            return 0
 
         #Remplissage des informations du vendeur
         c.execute(""" insert ignore into vendor values(DEFAULT , %s, %s) """, (self.location, self.vendor))
@@ -260,18 +266,6 @@ class Advisory:
 
         # Remplie les 6 listes précédentes
         self.cwe_parser()
-
-
-        if (len(self.cwe) == 1):
-            while(len(self.cwe)<len(self.cve)):
-                self.cwe += [self.cwe[0]]
-                self.cwe_link += [self.cwe_link[0]]
-                self.abstraction += [self.abstraction[0]]
-                self.structure += [self.structure[0]]
-                self.sfp1 += [self.sfp1[0]]
-                self.sfp2+=[self.sfp2[0]]
-                self.cvss += [self.cvss[0]]
-                self.score += [self.score[0]]
 
 
     def parser(self,balise,target,clean,):
