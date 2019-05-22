@@ -33,7 +33,7 @@ class Advisory:
         patch_id = c.fetchone()
 
         #Remplissage de la table ICS-CERT
-        c.execute(""" insert ignore into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
+        c.execute(""" insert into icscert values (default , %s, %s, %s)""", (self.ics_date, patch_id[0], self.ics))
 
         db.commit()
 
@@ -262,6 +262,17 @@ class Advisory:
         self.cwe_parser()
 
 
+        if (len(self.cwe) == 1):
+            while(len(self.cwe)<len(self.cve)):
+                self.cwe += [self.cwe[0]]
+                self.cwe_link += [self.cwe_link[0]]
+                self.abstraction += [self.abstraction[0]]
+                self.structure += [self.structure[0]]
+                self.sfp1 += [self.sfp1[0]]
+                self.sfp2+=[self.sfp2[0]]
+                self.cvss += [self.cvss[0]]
+                self.score += [self.score[0]]
+
 
     def parser(self,balise,target,clean,):
         """
@@ -336,13 +347,9 @@ class Advisory:
         for cve in cves:
             id = cve.getText()
             self.cve+=[id]
-            print(id)
             cve_date = re.sub("CVE-","",id)
-            print(cve_date)
             cve_date = re.sub("-[0-9\s]*","",cve_date)
-            print(cve_date)
             cve_date += "-01-01"
-            print(cve_date)
             self.cve_date += [cve_date]
             cve_link = cve.get('href')
             self.cve_link += [cve_link]

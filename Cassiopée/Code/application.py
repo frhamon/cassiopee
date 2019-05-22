@@ -2,13 +2,16 @@ import MySQLdb as mdb
 import fill_db
 import make_graph
 from getpass import getpass
+import os
 
 
 mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
 while(True):
 
     try :
-        fill_db.fill(mdp)
+        for i in range(2,10):
+            fill_db.fill(mdp,i)
+            p = os.system('mysqldump -u root -p"mathaouiz09" cassiopee -r ../Modélisation/cassiopee.sql')
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:
         if (e.args[0] == 1045):
             print("Mot de passe incorrect")
