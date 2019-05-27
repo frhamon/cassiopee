@@ -3,13 +3,15 @@ import fill_db
 import make_graph
 from getpass import getpass
 import os
-
+from Advisory import Advisory
 
 mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
+
+
 while(True):
 
     try :
-        for i in range(5,10):
+        for i in range(10):
             fill_db.fill(mdp,i)
             p = os.system('mysqldump -u root -p"mathaouiz09" cassiopee -r ../Modélisation/cassiopee.sql')
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:

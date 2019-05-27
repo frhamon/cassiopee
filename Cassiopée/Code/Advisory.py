@@ -42,7 +42,7 @@ class Advisory:
         icscert_id = c.fetchone()
 
         #Parcourir tous les CVE de l'advisory courant pour remplir les SFP1/2, CWE et CVSS
-        if len(self.cve) == len(self.sfp1):
+        if len(self.cve) == len(self.sfp1) == len(self.cvss) and self.ics!='ICSA-18-345-02' and self.ics!='ICSA-18-228-01':
             for i in range(len(self.cve)):
 
                 c.execute(""" insert ignore into sfp1 values (default , %s)""", (self.sfp1[i],))
@@ -207,13 +207,20 @@ class Advisory:
         self.location = self.parser_parent("LOCATION")
 
         # Nom du produit
-        self.product = self.parser_parent("Equipment")
+        self.product = self.parser_parent("Equipment").replace(";",",")
 
         # Liste des secteurs d'activité auxquels appartient le produit
-        self.sector = self.parser_parent("SECTORS").split(", ")
+        self.sector = self.parser_parent("SECTORS").replace('/',',').replace(', and ',',').replace(' and ',',').replace(";",",").replace(', ',',').split(",")
+        for i in range(len(self.sector)):
+            self.sector[i] = self.sector[i].rstrip()
+            self.sector[i] = self.sector[i].rstrip('.')
+            self.sector[i] = self.sector[i].replace('CRITICAL INFRASTRUCTURE SECTORS: ','')
+            self.sector[i] = self.sector[i].replace('Communications','Communication')
+            self.sector[i] = self.sector[i].replace('Multiple sectors', 'Multiple')
+            self.sector[i] = self.sector[i].replace('andWater','Water')
 
         # Pays où le produit est disponible
-        self.countries = self.parser_parent("DEPLOYED").split(", ")
+        self.countries = self.parser_parent("DEPLOYED").replace(";",",").split(", ")
 
 
         # Liste des CVE (possibilité d'avoir plusieurs CVE par advisory)
@@ -243,7 +250,6 @@ class Advisory:
 
         # Remplie les 2 listes précédentes
         self.cvss_parser()
-
 
         # Liste des références CWE (possibilité d'avoir plusieurs CWE par advisory)
         self.cwe = []
@@ -303,9 +309,9 @@ class Advisory:
         if res != None:
             res = res.parent
             res = res.getText()
-            res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
+            res = re.sub("[A-Za-z0-9/\s]*:[\s]*", "", res)
         else:
-            res = "Null"
+            res = "Inconnu"
         return res
 
 
@@ -360,7 +366,9 @@ class Advisory:
         """
         cvsss = self.soup.findAll('a', text=re.compile("AV:"))
         for cvss in cvsss:
-            id = cvss.getText().split('/')
+            id = cvss.getText()
+            id = re.sub("[()]*","",id)
+            id = id.split('/')
             self.cvss += [id]
             score = cvss.parent.getText()
             score = re.sub("[A-Za-z0-9\-.,;\s]* score of ","",score)
