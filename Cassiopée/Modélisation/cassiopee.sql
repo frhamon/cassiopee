@@ -103,6 +103,34 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `cve_by_sfp1`
+--
+
+DROP TABLE IF EXISTS `cve_by_sfp1`;
+/*!50001 DROP VIEW IF EXISTS `cve_by_sfp1`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `cve_by_sfp1` (
+  `sfp1` tinyint NOT NULL,
+  `cve` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `cve_by_sfp2`
+--
+
+DROP TABLE IF EXISTS `cve_by_sfp2`;
+/*!50001 DROP VIEW IF EXISTS `cve_by_sfp2`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `cve_by_sfp2` (
+  `sfp2` tinyint NOT NULL,
+  `cve` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `cvss`
 --
 
@@ -206,7 +234,7 @@ CREATE TABLE `icscert` (
   UNIQUE KEY `UC_icscert_name` (`name`),
   KEY `fk_icscert_patch` (`patch`),
   CONSTRAINT `fk_icscert_patch` FOREIGN KEY (`patch`) REFERENCES `patch` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1956 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1959 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +331,7 @@ CREATE TABLE `patch` (
   `patch` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UC_patch` (`patch`)
-) ENGINE=InnoDB AUTO_INCREMENT=1960 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1963 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,6 +527,20 @@ INSERT INTO `sfp1` VALUES (3940,'Access Control'),(3983,'API'),(3905,'Authentica
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `sfp1_instances`
+--
+
+DROP TABLE IF EXISTS `sfp1_instances`;
+/*!50001 DROP VIEW IF EXISTS `sfp1_instances`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `sfp1_instances` (
+  `sfp1` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `sfp1_sfp2`
 --
 
@@ -539,6 +581,20 @@ LOCK TABLES `sfp2` WRITE;
 INSERT INTO `sfp2` VALUES (3894,'None',3900),(3895,'State Disclosure',3901),(3896,'Tainted Input to Command',3902),(3898,'Exposed Data',3901),(3899,'Hardcoded Sensitive Data',3905),(3901,'Authentication Bypass',3905),(3902,'Weak Cryptography',3908),(3903,'Unrestricted Consumption',3909),(3905,'Faulty Buffer Access',3911),(3907,'Missing Authentication',3905),(3908,'Tainted Input to Variable',3902),(3910,'Incorrect Input Handling',3902),(3920,'Unchecked Status Condition',3926),(3921,'Architecture',3927),(3929,'Tainted Input to Environment',3902),(3934,'Access Management',3940),(3957,'Incorrect Buffer Length Computation',3911),(3961,'Faulty Memory Release',3967),(3965,'Faulty Resource Use',3909),(3977,'Use of an Improper API',3983),(3984,'Path Traversal',3990),(3998,'Unrestricted Authentication',3905),(4014,'Design',3927),(4105,'Channel Attack',4111),(4137,'Faulty Endpoint Authentication',3905),(4148,'Insecure Authentication Policy',3905),(4175,'Glitch in Computation',4181),(4183,'Unexpected Entry Points',4189),(4186,'Insecure Resource Permissions',3940),(4193,'Implementation',3927),(4353,'Security',4359),(4398,'Insecure Resource Access',3940);
 /*!40000 ALTER TABLE `sfp2` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `sfp2_instances`
+--
+
+DROP TABLE IF EXISTS `sfp2_instances`;
+/*!50001 DROP VIEW IF EXISTS `sfp2_instances`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `sfp2_instances` (
+  `sfp2` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `vendor`
@@ -600,6 +656,44 @@ UNLOCK TABLES;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `cve_by_icscert` AS select `cve`.`name` AS `cve`,`icscert`.`name` AS `icscert` from ((`cve` join `icscert`) join `icscert_cve`) where `icscert_cve`.`id_cve` = `cve`.`id` and `icscert_cve`.`id_icscert` = `icscert`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `cve_by_sfp1`
+--
+
+/*!50001 DROP TABLE IF EXISTS `cve_by_sfp1`*/;
+/*!50001 DROP VIEW IF EXISTS `cve_by_sfp1`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `cve_by_sfp1` AS select `sfp1`.`name` AS `sfp1`,`cve`.`name` AS `cve` from (((`cve` join `cwe`) join `sfp1`) join `sfp2`) where `cve`.`cwe` = `cwe`.`id` and `cwe`.`cweSFP2Cluster` = `sfp2`.`id` and `sfp2`.`sfp1` = `sfp1`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `cve_by_sfp2`
+--
+
+/*!50001 DROP TABLE IF EXISTS `cve_by_sfp2`*/;
+/*!50001 DROP VIEW IF EXISTS `cve_by_sfp2`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `cve_by_sfp2` AS select `sfp2`.`name` AS `sfp2`,`cve`.`name` AS `cve` from ((`cve` join `sfp2`) join `cwe`) where `cve`.`cwe` = `cwe`.`id` and `cwe`.`cweSFP2Cluster` = `sfp2`.`id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -681,6 +775,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `sfp1_instances`
+--
+
+/*!50001 DROP TABLE IF EXISTS `sfp1_instances`*/;
+/*!50001 DROP VIEW IF EXISTS `sfp1_instances`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `sfp1_instances` AS select `cve_by_sfp1`.`sfp1` AS `sfp1`,count(0) AS `quantity` from `cve_by_sfp1` group by `cve_by_sfp1`.`sfp1` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `sfp1_sfp2`
 --
 
@@ -698,6 +811,25 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `sfp2_instances`
+--
+
+/*!50001 DROP TABLE IF EXISTS `sfp2_instances`*/;
+/*!50001 DROP VIEW IF EXISTS `sfp2_instances`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `sfp2_instances` AS select `cve_by_sfp2`.`sfp2` AS `sfp2`,count(0) AS `quantity` from `cve_by_sfp2` group by `cve_by_sfp2`.`sfp2` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -708,4 +840,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-29 17:09:44
+-- Dump completed on 2019-05-29 17:58:49

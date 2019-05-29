@@ -75,3 +75,29 @@ def graph(i, mdp):
                        )
 
         plt.show()
+
+    if(i == '4'):
+        query_sector = "select * from sfp2_instances"
+
+        df_sector = psql.read_sql(query_sector, con=db)
+
+        df_sector.plot(x='sfp2',
+                       y='quantity',
+                       kind='bar',
+                       title='Number of CVE per SFP2'
+                       )
+
+        plt.show()
+
+    if(i == '5'):
+        query_sector = "select * from sfp1_instances"
+
+        df_sector = psql.read_sql(query_sector, con=db)
+
+        df_sector.plot(x='sfp1',
+                       y='quantity',
+                       kind='bar',
+                       title='Number of CVE per SFP1'
+                       )
+
+        plt.show()
