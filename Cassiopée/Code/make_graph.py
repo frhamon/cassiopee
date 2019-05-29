@@ -9,6 +9,27 @@ def list():
     print('Voici la liste des graphes disponibles: ')
     print("1. Premier graphe un peu nul pour l'instant")
     print("2. Répartition des advisories par secteurs")
+    print("3. Nombre de CVE par ICS-CERT")
+
+
+def autolabel(rects, xpos='center'):
+    """
+    Attach a text label above each bar in *rects*, displaying its height.
+
+    *xpos* indicates which side to place the text w.r.t. the center of
+    the bar. It can be one of the following {'center', 'right', 'left'}.
+    """
+
+    ha = {'center': 'center', 'right': 'left', 'left': 'right'}
+    offset = {'center': 0, 'right': 1, 'left': -1}
+
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate('{}'.format(height),
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(offset[xpos] * 3, 3),  # use 3 points offset
+                    textcoords="offset points",  # in both directions
+                    ha=ha[xpos], va='bottom')
 
 def graph(i, mdp):
     db = mdb.Connection(host='localhost', db='cassiopee', passwd=mdp, user='root', charset='utf8')
@@ -39,6 +60,18 @@ def graph(i, mdp):
                        y='quantity',
                        kind='bar',
                        title='Number of products per sector'
+                       )
+        plt.show()
+
+    if(i == '3'):
+        query_sector = "select * from icscert_instances"
+
+        df_sector = psql.read_sql(query_sector, con=db)
+
+        df_sector.plot(x='icscert',
+                       y='quantity',
+                       kind='bar',
+                       title='Number of CVE per ICSCERT'
                        )
 
         plt.show()
