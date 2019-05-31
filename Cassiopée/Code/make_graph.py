@@ -3,6 +3,7 @@ import pandas as pd
 import pandas.io.sql as psql
 import matplotlib.pyplot as plt
 import tkinter
+import os
 
 def list():
     print()
@@ -10,6 +11,8 @@ def list():
     print("1. Premier graphe un peu nul pour l'instant")
     print("2. Répartition des advisories par secteurs")
     print("3. Nombre de CVE par ICS-CERT")
+    print("4. Répartition des CVE par SFP2")
+    print("5. Répartition des CVE par SFP1")
 
 
 def autolabel(rects, xpos='center'):
@@ -31,7 +34,16 @@ def autolabel(rects, xpos='center'):
                     textcoords="offset points",  # in both directions
                     ha=ha[xpos], va='bottom')
 
-def graph(i, mdp):
+
+def export_to_csv(i, csv, df):
+    if csv == 'csv':
+        df.to_csv('export_graph{}'.format(i))
+        print('L\'export en .csv a été correctement réalisé. Retrouvez dans le dossier {}'.format(os.getcwd()))
+    else:
+        print('Aucun export en .csv n\'a été fait. Pour exporter en .csv, tapez csv après le graphe de votre choix.')
+
+
+def graph(i, mdp, csv):
     db = mdb.Connection(host='localhost', db='cassiopee', passwd=mdp, user='root', charset='utf8')
 
 
@@ -49,6 +61,9 @@ def graph(i, mdp):
         df['count'] = df.date_creation.map(df.groupby('date_creation').size())
 
         df.plot(x='date_creation')
+
+        export_to_csv(i, csv, df)
+
         plt.show()
 
     if(i == '2'):
@@ -61,6 +76,9 @@ def graph(i, mdp):
                        kind='bar',
                        title='Number of products per sector'
                        )
+
+        export_to_csv(i, csv, df_sector)
+
         plt.show()
 
     if(i == '3'):
@@ -73,6 +91,9 @@ def graph(i, mdp):
                        kind='bar',
                        title='Number of CVE per ICSCERT'
                        )
+
+        export_to_csv(i, csv, df_sector)
+
 
         plt.show()
 
@@ -87,6 +108,8 @@ def graph(i, mdp):
                        title='Number of CVE per SFP2'
                        )
 
+        export_to_csv(i, csv, df_sector)
+
         plt.show()
 
     if(i == '5'):
@@ -99,5 +122,7 @@ def graph(i, mdp):
                        kind='bar',
                        title='Number of CVE per SFP1'
                        )
+
+        export_to_csv(i, csv, df_sector)
 
         plt.show()

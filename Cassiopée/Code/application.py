@@ -3,6 +3,7 @@ import fill_db
 import make_graph
 from getpass import getpass
 import os
+import click
 from Advisory import Advisory
 
 mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
@@ -34,15 +35,27 @@ make_graph.list()
 print()
 print("Pour afficher un graphe, tapez 'i' avec i le numero du graphe")
 print("Pour réafficher la liste des graphes, tapez 'list' ")
+print('Pour exporter un graphe au format .csv, tapez \'csv\' après le numéro du graphe que vous avez choisi.')
 print("Pour quitter, tapez 'quit' ")
 print();print()
 
 while True:
     print()
-    cmd = input("Tapez votre commande: ")
+    csv = ''
+    command_list = input("Tapez votre commande: ").split()
+
+    if len(command_list) == 0:
+        print('Vous n\'avez pas donné d\'arguments.')
+    else:
+        cmd = command_list[0]
+        if len(command_list) >= 2:
+            csv = command_list[1]
+    if len(command_list) > 2:
+        print('Vous avez donné trop d\'arguments. Seuls les deux premiers ont été pris en compte.')
+
     if(cmd == 'quit'):
         break
     elif cmd == 'list':
         make_graph.list()
     else:
-        make_graph.graph(cmd,mdp)
+        make_graph.graph(cmd,mdp,csv)
