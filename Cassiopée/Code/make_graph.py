@@ -34,7 +34,7 @@ def autolabel(rects, xpos='center'):
                     textcoords="offset points",  # in both directions
                     ha=ha[xpos], va='bottom')
 
-
+#Fonction permettant d'exporter au format csv si les conditions le permettent
 def export_to_csv(i, csv, df):
     if csv == 'csv':
         df.to_csv('export_graph{}'.format(i))
