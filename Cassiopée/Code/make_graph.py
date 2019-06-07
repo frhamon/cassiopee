@@ -37,7 +37,7 @@ def autolabel(rects, xpos='center'):
 #Fonction permettant d'exporter au format csv si les conditions le permettent
 def export_to_csv(i, csv, df):
     if csv == 'csv':
-        df.to_csv('export_graph{}'.format(i))
+        df.to_csv('export_graph{}.csv'.format(i))
         print('L\'export en .csv a été correctement réalisé. Retrouvez dans le dossier {}'.format(os.getcwd()))
     else:
         print('Aucun export en .csv n\'a été fait. Pour exporter en .csv, tapez csv après le graphe de votre choix.')

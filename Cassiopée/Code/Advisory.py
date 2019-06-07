@@ -2,7 +2,7 @@
 import urllib.request
 import re
 import MySQLdb as mdb
-
+import ssl
 
 """
 ICS-CERT n'accepte pas les requetes ne venant pas de navigateurs,
@@ -323,7 +323,10 @@ class Advisory:
 
         :return: retourne la date de création du CVE
         """
-        pageCVE = opener.open(cve.get('href'))
+        try:
+            pageCVE = opener.open(cve.get('href'))
+        except(ssl.CertificateError) as e:
+            return None
         soupCVE = BeautifulSoup(pageCVE, 'html.parser')
         res = soupCVE.find('strong', text=re.compile("Last Modified"))
         if res != None:
@@ -386,9 +389,14 @@ class Advisory:
         for cwe in cwes:
             id = cwe.getText()
             id = re.sub("[A-Za-z0-9;,:\s\-\(\)\"\']* CWE-","CWE-",id)
-            self.cwe += [id]
-            pageCWE = opener.open(cwe.get('href'))
+            # Lien possiblement cassé
+            try:
+                pageCWE = opener.open(cwe.get('href'))
+            except(urllib.error.URLError) as e:
+                continue
+
             soupCWE = BeautifulSoup(pageCWE, 'html.parser')
+            self.cwe += [id]
 
             # Si l'id désigne une classe de CWE :
             if soupCWE.find('h2', text=re.compile('CWE-')) == None:
