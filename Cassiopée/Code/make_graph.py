@@ -8,7 +8,7 @@ import os
 def list():
     print()
     print('Voici la liste des graphes disponibles: ')
-    print("1. Premier graphe un peu nul pour l'instant")
+    print("1. Advisories en fonction de leur date de création")
     print("2. Répartition des advisories par secteurs")
     print("3. Nombre de CVE par ICS-CERT")
     print("4. Répartition des CVE par SFP2")
