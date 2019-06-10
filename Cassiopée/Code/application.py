@@ -3,7 +3,6 @@ import fill_db
 import make_graph
 from getpass import getpass
 import os
-import click
 from Advisory import Advisory
 
 mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
