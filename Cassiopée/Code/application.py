@@ -12,7 +12,7 @@ mdp = getpass(prompt="Veuillez rentrer votre mot de passe mysql: ")
 while(True):
 
     try :
-        for i in range(20,25):
+        for i in range(25):
             fill_db.fill(mdp,i)
             p = os.system('mysqldump -u root -p"mathaouiz09" cassiopee -r ../Modélisation/cassiopee.sql')
     except (mdb._exceptions.IntegrityError, mdb._exceptions.OperationalError, mdb._exceptions.ProgrammingError) as e:
