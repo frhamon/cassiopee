@@ -32,6 +32,7 @@ Some other precious information might be found at this [address](https://www.ana
 
 ## Install MySQL Python Dependecy
 
+- WARNING : not compatible with MySQL 8.0, must have an older version
 - In your terminal, type `sudo apt-get install python3-dev`
 - Then `python3 -m pip install mysqlclient`
 

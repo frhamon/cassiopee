@@ -27,6 +27,8 @@ Some other precious information might be found at this [address](https://www.ana
 
 ## Install MySQL Python Dependecy
 
+- WARNING : not compatible with MySQL 8.0, must have an older version
+
 - In your terminal, type `brew install mysql-connector-c` # macOS (Homebrew)  (Currently, it may has bug. See below)
 
 - Then `python3 -m pip install mysqlclient`
