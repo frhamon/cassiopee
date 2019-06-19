@@ -210,7 +210,7 @@ class Advisory:
         self.product = self.parser_parent("Equipment").replace(";",",")
 
         # Liste des secteurs d'activité auxquels appartient le produit
-        self.sector = self.parser_parent("SECTORS").replace('/',',').replace(', and ',',').replace(' and ',',').replace(";",",").replace(', ',',').split(",")
+        self.sector = self.parser_parent("SECTORS").replace('•','').replace('/',',').replace(', and ',',').replace(' and ',',').replace(";",",").replace(', ',',').split(",")
         for i in range(len(self.sector)):
             self.sector[i] = self.sector[i].rstrip()
             self.sector[i] = self.sector[i].rstrip('.')
@@ -218,6 +218,7 @@ class Advisory:
             self.sector[i] = self.sector[i].replace('Communications','Communication')
             self.sector[i] = self.sector[i].replace('Multiple sectors', 'Multiple')
             self.sector[i] = self.sector[i].replace('andWater','Water')
+            self.sector[i] = re.sub("[A-Za-z0-9\s]*Worldwide[A-Za-z0-9\s]*", "", self.sector[i])
 
         # Pays où le produit est disponible
         self.countries = self.parser_parent("DEPLOYED").replace(";",",").split(", ")
@@ -330,7 +331,7 @@ class Advisory:
         soupCVE = BeautifulSoup(pageCVE, 'html.parser')
         res = soupCVE.find('strong', text=re.compile("Last Modified"))
         if res != None:
-            res = soupCVE.find('strong', text=re.compile("Last Modified")).next_sibling.next_sibling
+            res = res.next_sibling.next_sibling.next_sibling
             res = res.getText()
             res = re.sub("[A-Za-z0-9/\s]*: ", "", res)
             res = res.split("/")

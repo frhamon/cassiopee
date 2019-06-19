@@ -8,8 +8,8 @@ import os
 def list():
     print()
     print('Voici la liste des graphes disponibles: ')
-    print("1. Répartition des advisories par secteurs")
-    print("2. Nombre de CVE par ICS-CERT")
+    print("1. Répartition des advisories par secteur")
+    print("2. Nombre de CVE par advisory")
     print("3. Répartition des CVE par SFP2")
     print("4. Répartition des CVE par SFP1")
 
